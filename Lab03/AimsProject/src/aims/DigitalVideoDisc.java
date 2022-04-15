@@ -7,12 +7,9 @@ public class DigitalVideoDisc {
 	private int length;
 	private float cost;
 	
-//	Generate Getters and Setters
+//	Generate Getters
 	public String getTitle() {
 		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
 	}
 	public String getCategory() {
 		return category;
