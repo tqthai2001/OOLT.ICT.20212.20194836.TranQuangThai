@@ -1,4 +1,0 @@
-INDEX VERSION 1.131+D:\OOP Lab\OOLT.ICT.20212.20194836.TranQuangThai\Lab03\.metadata\.plugins\org.eclipse.jdt.core
-1865797976.index
-2315386619.index
-1064727417.index
