@@ -21,12 +21,44 @@ public class Cart {
 		}
 	}
 	
-	public void addDigitalVideoDisc(DigitalVideoDisc [] dvdlist) {
-		
+//	public void addDigitalVideoDisc(DigitalVideoDisc [] dvdlist) {
+//		if (dvdlist.length + qtyOrdered < MAX_NUMBERS_ORDERED) {
+//			for (int i = 0; i < dvdlist.length; i++) {
+//				itemsOrdered[qtyOrdered] = dvdlist[i];
+//				qtyOrdered += 1;
+//				System.out.println("The disc: " + dvdlist[i].getTitle() + " has been added.");
+//			}
+//		}
+//		else {
+//			System.out.println("Can not add " + dvdlist.length + " disc(s).");
+//		}
+//	}
+	
+//	Pass an arbitrary number of arguments
+	public void addDigitalVideoDisc(DigitalVideoDisc ... dvdlist) {
+		if (dvdlist.length + qtyOrdered < MAX_NUMBERS_ORDERED) {
+			for (int i = 0; i < dvdlist.length; i++) {
+				itemsOrdered[qtyOrdered] = dvdlist[i];
+				qtyOrdered += 1;
+				System.out.println("The disc: " + dvdlist[i].getTitle() + " has been added.");
+			}
+		}
+		else {
+			System.out.println("Can not add " + dvdlist.length + " disc(s).");
+		}
 	}
 	
 	public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
-		
+		if (2 + qtyOrdered < MAX_NUMBERS_ORDERED) {
+			itemsOrdered[qtyOrdered] = dvd1;
+			itemsOrdered[qtyOrdered + 1] = dvd2;
+			qtyOrdered += 2;
+			System.out.println("The disc: " + dvd1.getTitle() + " has been added.");
+			System.out.println("The disc: " + dvd2.getTitle() + " has been added.");
+		}
+		else {
+			System.out.println("Can not add 2 discs.");
+		}
 	}
 	
 	public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
@@ -57,5 +89,64 @@ public class Cart {
 			sum += itemsOrdered[i].getCost();
 		}
 		return sum;
+	}
+	
+	public void sortCartByCost() {
+		DigitalVideoDisc[] tmpCart = new DigitalVideoDisc[qtyOrdered];
+		for (int i = 0; i < qtyOrdered; i++) {
+			tmpCart[i] = itemsOrdered[i];
+		}
+		tmpCart = DVDUtils.sortByCost(tmpCart);
+		for (int i = 0; i < qtyOrdered; i++) {
+			System.out.println(tmpCart[i].toString());
+		}
+	}
+	
+	public void sortCartByTitle() {
+		DigitalVideoDisc[] tmpCart = new DigitalVideoDisc[qtyOrdered];
+		for (int i = 0; i < qtyOrdered; i++) {
+			tmpCart[i] = itemsOrdered[i];
+		}
+		tmpCart = DVDUtils.sortByTitle(tmpCart);
+		for (int i = 0; i < qtyOrdered; i++) {
+			System.out.println(tmpCart[i].toString());
+		}
+	}
+	
+	public void searchByID(int id) {
+		int count = 0;
+		for (int i = 0; i < qtyOrdered; i++) {
+			if (itemsOrdered[i].getId() == id) {
+				System.out.println("Found: " + itemsOrdered[i].toString());
+				count += 1;
+			}
+		}
+		if (count == 0) System.out.println("No match is found.");
+	}
+	
+	public void printCart() {
+		for (int i = 0; i < qtyOrdered - 1; i++) {
+			for (int j = 0; j < qtyOrdered - i - 1; j++) {
+				if (DVDUtils.compareByTitle(itemsOrdered[j], itemsOrdered[j+1]) > 0) {
+					TestPassingParameter.swap(itemsOrdered[j], itemsOrdered[j+1]);
+				}
+				else if (DVDUtils.compareByTitle(itemsOrdered[j], itemsOrdered[j+1]) == 0
+						&& DVDUtils.compareByCost(itemsOrdered[j], itemsOrdered[j+1]) < 0) {
+					TestPassingParameter.swap(itemsOrdered[j], itemsOrdered[j+1]);
+				}
+				else if (DVDUtils.compareByTitle(itemsOrdered[j], itemsOrdered[j+1]) == 0
+						&& DVDUtils.compareByCost(itemsOrdered[j], itemsOrdered[j+1]) == 0
+						&& itemsOrdered[j].getLength() < itemsOrdered[j+1].getLength()) {
+					TestPassingParameter.swap(itemsOrdered[j], itemsOrdered[j+1]);
+				}
+			}
+		}
+		System.out.println("***********************CART***********************");
+		System.out.println("Ordered Items:");
+		for (int i = 1; i <= qtyOrdered; i++) {
+			System.out.println(i + ". " + itemsOrdered[i-1].toString());
+		}
+		System.out.println("Total cost: " + totalCost());
+		System.out.println("***************************************************");
 	}
 }

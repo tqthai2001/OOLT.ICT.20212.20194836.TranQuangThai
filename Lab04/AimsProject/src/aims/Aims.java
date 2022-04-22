@@ -23,19 +23,22 @@ public class Aims {
 		
 //		ADD
 		anOrder.addDigitalVideoDisc(dvd1);
-		anOrder.addDigitalVideoDisc(dvd2);
 		anOrder.addDigitalVideoDisc(dvd3);
 		anOrder.addDigitalVideoDisc(dvd4);
-//		anOrder.addDigitalVideoDisc(dvd5);
-		System.out.println(anOrder.getQtyOrdered() + " item(s) in the cart.");
-		System.out.println("Total cost is: " + anOrder.totalCost());
+		anOrder.addDigitalVideoDisc(dvd5);
+//		System.out.println(anOrder.getQtyOrdered() + " item(s) in the cart.");
+//		System.out.println("Total cost is: " + anOrder.totalCost());
 		
 //		REMOVE
 		anOrder.removeDigitalVideoDisc(dvd2);
 		anOrder.removeDigitalVideoDisc(dvd1);
-		anOrder.removeDigitalVideoDisc(dvd5);
-		System.out.println(anOrder.getQtyOrdered() + " item(s) in the cart.");
-		System.out.println("Total cost is: " + anOrder.totalCost());
+//		anOrder.removeDigitalVideoDisc(dvd5);
+//		System.out.println(anOrder.getQtyOrdered() + " item(s) in the cart.");
+//		System.out.println("Total cost is: " + anOrder.totalCost());
+		
+//		anOrder.sortCartByCost();
+//		anOrder.sortCartByTitle();
+		anOrder.printCart();
 	}
 
 }
