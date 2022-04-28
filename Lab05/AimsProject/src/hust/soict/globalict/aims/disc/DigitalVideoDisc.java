@@ -1,4 +1,5 @@
 package hust.soict.globalict.aims.disc;
+
 import java.time.LocalDate;
 
 public class DigitalVideoDisc {
@@ -96,12 +97,18 @@ public class DigitalVideoDisc {
 	}
 	
 	public String toString() {
-		return "DVD - " + this.title + " - " + this.category + " - " + this.director
+		return "DVD - ID: " + this.id + " - " + this.title + " - " + this.category + " - " + this.director
 				+ " - " + this.length + ": " + this.cost + " $";
 	}
 	
-	boolean isMatch(String title) {
-		if (this.title.toLowerCase().contains(title)) return true;
+	public boolean isMatch(String title) {
+		String [] tmpTitle = title.split(" ");
+		String [] tmpDVDTitle = this.title.split(" ");
+		for (int i = 0; i < tmpTitle.length; i++) {
+			for (int j = 0; j < tmpDVDTitle.length; j++) {
+				if (tmpTitle[i].equalsIgnoreCase(tmpDVDTitle[j])) return true;
+			}
+		}
 		return false;
 	}
 }

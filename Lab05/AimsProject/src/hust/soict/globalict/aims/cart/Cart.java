@@ -95,6 +95,21 @@ public class Cart {
 		return sum;
 	}
 	
+	public void removeByName(String title) {
+		for (int i = 0; i < qtyOrdered; i++) {
+			if (title.equalsIgnoreCase(itemsOrdered[i].getTitle())) {
+				removeDigitalVideoDisc(itemsOrdered[i]);
+			}
+		}
+	}
+	
+	public void emptyCart() {
+		while (qtyOrdered > 0) {
+			removeDigitalVideoDisc(itemsOrdered[0]);
+		}
+//		printCartGeneral();
+	}
+	
 	public void sortCartByCost() {
 		DigitalVideoDisc[] tmpCart = new DigitalVideoDisc[qtyOrdered];
 		for (int i = 0; i < qtyOrdered; i++) {
@@ -126,6 +141,59 @@ public class Cart {
 			}
 		}
 		if (count == 0) System.out.println("No match is found.");
+	}
+	
+	public void searchByTitle(String title) {
+		int count = 0;
+		for (int i = 0; i < qtyOrdered; i++) {
+			if (itemsOrdered[i].isMatch(title) == true) {
+				System.out.println("Found: " + itemsOrdered[i].toString());
+				count += 1;
+			}
+		}
+		if (count == 0) System.out.println("No match is found.");
+	}
+	
+	public void printCartGeneral() {
+		System.out.println("***********************CART***********************");
+		if (qtyOrdered <= 0) System.out.println("Empty cart!");
+		else {
+			for (int i = 1; i <= qtyOrdered; i++) {
+				System.out.println(i + ". " + itemsOrdered[i-1].toString());
+			}
+		}
+		System.out.println("Total cost: " + totalCost());
+		System.out.println("***************************************************");
+	}
+	
+	public void sortByAlphabetAndDecreasingCost() {
+		for (int i = 0; i < qtyOrdered - 1; i++) {
+			for (int j = 0; j < qtyOrdered - i - 1; j++) {
+				if (DVDUtils.compareByTitle(itemsOrdered[j], itemsOrdered[j+1]) > 0) {
+					TestPassingParameter.swap(itemsOrdered[j], itemsOrdered[j+1]);
+				}
+				else if (DVDUtils.compareByTitle(itemsOrdered[j], itemsOrdered[j+1]) == 0
+						&& DVDUtils.compareByCost(itemsOrdered[j], itemsOrdered[j+1]) < 0) {
+					TestPassingParameter.swap(itemsOrdered[j], itemsOrdered[j+1]);
+				}
+			}
+		}
+//		printCartGeneral();
+	}
+	
+	public void sortByDecreasingCostAndAlphabet() {
+		for (int i = 0; i < qtyOrdered - 1; i++) {
+			for (int j = 0; j < qtyOrdered - i - 1; j++) {
+				if (DVDUtils.compareByCost(itemsOrdered[j], itemsOrdered[j+1]) < 0) {
+					TestPassingParameter.swap(itemsOrdered[j], itemsOrdered[j+1]);
+				}
+				else if (DVDUtils.compareByCost(itemsOrdered[j], itemsOrdered[j+1]) == 0
+						&& DVDUtils.compareByTitle(itemsOrdered[j], itemsOrdered[j+1]) > 0) {
+					TestPassingParameter.swap(itemsOrdered[j], itemsOrdered[j+1]);
+				}
+			}
+		}
+//		printCartGeneral();
 	}
 	
 	public void printCart() {
