@@ -1,0 +1,3 @@
+String is immutable, if you try to alter their values, another object gets created, 
+whereas StringBuffer is mutable so they can change their values. 
+Thats why StringBuffer is faster than String.
