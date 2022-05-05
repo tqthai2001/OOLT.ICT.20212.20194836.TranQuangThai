@@ -1,6 +1,6 @@
 package hust.soict.globalict.aims.utils;
 
-import hust.soict.globalict.aims.disc.DigitalVideoDisc;
+import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.test.disc.TestPassingParameter;
 
 public class DVDUtils {
@@ -18,7 +18,9 @@ public class DVDUtils {
 		for (int i = 0; i < dvdlist.length - 1; i++) {
 			for (int j = 0; j < dvdlist.length - i - 1; j++) {
 				if (compareByCost(dvdlist[j], dvdlist[j+1]) < 0) {
-					TestPassingParameter.swap(dvdlist[j], dvdlist[j+1]);
+					DigitalVideoDisc tmpDigitalVideoDisc = dvdlist[j];
+					dvdlist[j] = dvdlist[j+1];
+					dvdlist[j+1] = tmpDigitalVideoDisc;
 				}
 			}
 		}
@@ -29,7 +31,9 @@ public class DVDUtils {
 		for (int i = 0; i < dvdlist.length - 1; i++) {
 			for (int j = 0; j < dvdlist.length - i - 1; j++) {
 				if (compareByTitle(dvdlist[j], dvdlist[j+1]) < 0) {
-					TestPassingParameter.swap(dvdlist[j], dvdlist[j+1]);
+					DigitalVideoDisc tmpDigitalVideoDisc = dvdlist[j];
+					dvdlist[j] = dvdlist[j+1];
+					dvdlist[j+1] = tmpDigitalVideoDisc;
 				}
 			}
 		}

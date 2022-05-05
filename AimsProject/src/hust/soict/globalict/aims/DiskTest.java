@@ -1,7 +1,7 @@
 package hust.soict.globalict.aims;
 
 import hust.soict.globalict.aims.cart.Cart;
-import hust.soict.globalict.aims.disc.DigitalVideoDisc;
+import hust.soict.globalict.aims.media.DigitalVideoDisc;
 
 public class DiskTest {
 
@@ -43,12 +43,13 @@ public class DiskTest {
 		
 //		ADD
 		System.out.println("__________ADD__________");
-		cart.addDigitalVideoDisc(dvd1);
-		cart.addDigitalVideoDisc(dvd2);
-		cart.addDigitalVideoDisc(dvd3);
-		cart.addDigitalVideoDisc(dvd4, dvd5); // Add 2 elements
-		cart.addDigitalVideoDisc(dvd6, dvd7);
-		cart.addDigitalVideoDisc(dvdlist); // Add many elements dvd8, dvd9, dvd10
+		cart.addMedia(dvd1);
+		cart.addMedia(dvd2);
+		cart.addMedia(dvd3);
+		cart.addMedia(dvd4, dvd5); // Add 2 elements
+		cart.addMedia(dvd6, dvd7);
+		cart.addMedia(dvdlist); // Add many elements dvd8, dvd9, dvd10
+		cart.printCartGeneral();
 		
 //		SEARCH BY TITLE
 		System.out.println("__________SEARCH BY TITLE__________");
