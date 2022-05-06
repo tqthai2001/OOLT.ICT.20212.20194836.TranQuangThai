@@ -1,7 +1,8 @@
 package hust.soict.globalict.test.cart;
 
 import hust.soict.globalict.aims.cart.Cart;
-import hust.soict.globalict.aims.disc.DigitalVideoDisc;
+import hust.soict.globalict.aims.media.Book;
+import hust.soict.globalict.aims.media.DigitalVideoDisc;
 
 public class CartTest {
 
@@ -15,66 +16,59 @@ public class CartTest {
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars",
 				"Science Fiction", "George Lucas", 87, 24.95f);
 		
-		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin",
-				"Animation", 18.99f);
-		
-		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Spider-Man",
-				"Science Fiction", "Tom Holland", 87, 100.23f);
 //		**********************************************************
-		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Avengers",
+		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Avengers",
 				"Science Fiction", "Russo", 100, 90.91f);
 		
-		DigitalVideoDisc dvd6 = new DigitalVideoDisc("Avengers",
+		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Avengers",
 				"Science Fiction", "Holland", 87, 93.96f);
 		
-		DigitalVideoDisc dvd7 = new DigitalVideoDisc("Avengers",
+		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Avengers",
 				"Science Fiction", "Cruise", 99, 93.96f);
 //		**********************************************************
-		DigitalVideoDisc dvd8 = new DigitalVideoDisc("Batman",
-				"Science Fiction", "Joe", 70, 86.90f);
 		
-		DigitalVideoDisc dvd9 = new DigitalVideoDisc("Captain America",
-				"Science Fiction", "Lucas", 79, 88.22f);
+		Book book1 = new Book("Conan", "Manga", "Special drama for the live-action of Detective Conan", 25.75f);
+		book1.addAuthor("Gosho");
+		book1.addAuthor("Thai");
 		
-		DigitalVideoDisc dvd10 = new DigitalVideoDisc("Batman",
-				"Science Fiction", "Joe", 70, 86.90f);
-		
-		DigitalVideoDisc[] dvdlist = new DigitalVideoDisc[] {dvd10, dvd9, dvd8};
+		Book book2 = new Book("Doraemon", "Comic", "I can can the can, but the can cannot can me", 56.78f);
+		book2.addAuthor("Fujio");
 		
 //		ADD
 		System.out.println("__________ADD__________");
-		cart.addDigitalVideoDisc(dvd1);
-		cart.addDigitalVideoDisc(dvd2);
-		cart.addDigitalVideoDisc(dvd3);
-		cart.addDigitalVideoDisc(dvd4, dvd5); // Add 2 elements
-		cart.addDigitalVideoDisc(dvd6, dvd7);
-		cart.addDigitalVideoDisc(dvdlist); // Add many elements dvd8, dvd9, dvd10
+		cart.addMedia(dvd1, dvd2, dvd3, dvd1);
+		cart.addMedia(dvd4, dvd5); // Add 2 elements
+		cart.addMedia(book1, book2);
 		
 //		REMOVE
 		System.out.println("");
 		System.out.println("__________REMOVE__________");
-		cart.removeDigitalVideoDisc(dvd10);
-		cart.removeDigitalVideoDisc(dvd1);
+		cart.removeMedia(dvd3);
 		System.out.println("");
-		
+
 //		SORT
 		System.out.println("");
 		System.out.println("__________SORT BY COST__________");
-		cart.sortCartByCost();
+		cart.sortByDecreasingCostAndAlphabet();
+		cart.printCartGeneral();
 		
 		System.out.println("");
 		System.out.println("__________SORT BY TITLE__________");
-		cart.sortCartByTitle();
+		cart.sortByAlphabetAndDecreasingCost();
+		cart.printCartGeneral();
 		
 //		SEARCH
 		System.out.println("");
 		System.out.println("__________SEARCH__________");
-		cart.searchByID(7);
+		cart.searchByID(5);
 		cart.searchByID(18);
 		
+		book1.seeDetail();
+		book2.seeDetail();
+
 //		PRINT CART
-		System.out.println("");
-		cart.printCart();
+//		System.out.println("");
+//		cart.printCartGeneral();
 	}
 
 }

@@ -1,6 +1,7 @@
 package hust.soict.globalict.test.store;
 
-import hust.soict.globalict.aims.disc.DigitalVideoDisc;
+import hust.soict.globalict.aims.media.Book;
+import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.aims.store.Store;
 
 public class StoreTest {
@@ -8,44 +9,44 @@ public class StoreTest {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Store store = new Store();
+		
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
 				"Animation", "Roger Allers", 87, 19.95f);
 		
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars",
 				"Science Fiction", "George Lucas", 87, 24.95f);
 		
-		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin",
-				"Animation", 18.99f);
-		
-		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Spider-Man",
-				"Science Fiction", "Tom Holland", 87, 100.23f);
 //		**********************************************************
-		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Avengers",
+		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Avengers",
 				"Science Fiction", "Russo", 100, 90.91f);
 		
-		DigitalVideoDisc dvd6 = new DigitalVideoDisc("Avengers",
+		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Avengers",
 				"Science Fiction", "Holland", 87, 93.96f);
 		
-		DigitalVideoDisc dvd7 = new DigitalVideoDisc("Avengers",
+		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Avengers",
 				"Science Fiction", "Cruise", 99, 93.96f);
 //		**********************************************************
-		DigitalVideoDisc dvd8 = new DigitalVideoDisc("Batman",
-				"Science Fiction", "Joe", 70, 86.90f);
 		
-		DigitalVideoDisc dvd9 = new DigitalVideoDisc("Captain America",
-				"Science Fiction", "Lucas", 79, 88.22f);
+		Book book1 = new Book("Conan", "Manga", "Special drama for the live-action of Detective Conan", 25.75f);
+		book1.addAuthor("Gosho");
+		book1.addAuthor("Thai");
 		
-		DigitalVideoDisc dvd10 = new DigitalVideoDisc("Batman",
-				"Science Fiction", "Joe", 70, 86.90f);
+		Book book2 = new Book("Doraemon", "Comic", "I can can the can, but the can cannot can me", 56.78f);
+		book2.addAuthor("Fujio");
 		
-		store.addDVD(dvd10);
-		store.addDVD(dvd9);
-		store.addDVD(dvd1, dvd2, dvd3);
-		store.viewStore();
+//		ADD
+		System.out.println("__________ADD__________");
+		store.addMedia(dvd1, dvd2, dvd3, dvd1);
+		store.addMedia(dvd4, dvd5); // Add 2 elements
+		store.addMedia(book1, book2);
 		
+//		REMOVE
 		System.out.println("");
-		store.removeDVD(dvd10);
-		store.removeDVD(dvd5);
+		System.out.println("__________REMOVE__________");
+		store.removeMedia(dvd3);
+		store.removeMedia(book1);
+		System.out.println("");
+		
 		store.viewStore();
 	}
 
