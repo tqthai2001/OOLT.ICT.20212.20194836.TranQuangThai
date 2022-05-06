@@ -49,8 +49,16 @@ public class Cart {
 	
 	public Media getALuckyItem() {
 		int luckyItem = (int)(Math.random() * itemsOrdered.size());
-		itemsOrdered.get(luckyItem).setCost(0f);
 		return itemsOrdered.get(luckyItem);
+	}
+	
+	public void updateLuckyItemInCart() {
+		Media luckyItem = getALuckyItem();
+		Media copyLuckyItem = luckyItem.copyData();
+		copyLuckyItem.setCost(0f);
+		itemsOrdered.remove(luckyItem);
+		itemsOrdered.add(copyLuckyItem);
+		System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
 	}
 
 	public float totalCost() {

@@ -61,6 +61,13 @@ public class DigitalVideoDisc extends Media {
 		this.id = nbMedia;
 	}
 	
+	public DigitalVideoDisc copyData() {
+		DigitalVideoDisc tmDigitalVideoDisc = new DigitalVideoDisc(this.title, this.category, this.director, this.length, this.cost);
+		tmDigitalVideoDisc.setId(this.id);
+		tmDigitalVideoDisc.setDateAdded(this.dateAdded);
+		return tmDigitalVideoDisc;
+	}
+	
 	public String toString() {
 		return "DVD - ID: " + this.id + " - " + this.title + " - " + this.category + " - " + this.director
 				+ " - " + this.length + ": " + this.cost + " $";

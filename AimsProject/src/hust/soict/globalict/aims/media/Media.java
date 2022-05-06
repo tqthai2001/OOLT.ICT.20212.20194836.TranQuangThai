@@ -63,6 +63,16 @@ public class Media {
 		return false;
 	}
 	
+	public Media copyData() {
+		Media tmpMedia = new Media();
+		tmpMedia.setId(this.id);
+		tmpMedia.setTitle(this.title);
+		tmpMedia.setCategory(this.category);
+		tmpMedia.setCost(this.cost);
+		tmpMedia.setDateAdded(this.dateAdded);
+		return tmpMedia;
+	}
+	
 	public String toString() {
 		return "ID: " + this.id + " - " + this.title + " - " + this.category +
 				": " + this.cost + " $";

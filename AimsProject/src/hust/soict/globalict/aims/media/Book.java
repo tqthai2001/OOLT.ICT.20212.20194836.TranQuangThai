@@ -50,6 +50,14 @@ public class Book extends Media {
 		this.id = nbMedia;
 	}
 	
+	public Book copyData() {
+		Book tmpBook = new Book(this.title, this.category, this.content, this.cost);
+		tmpBook.setAuthors(this.getAuthors());
+		tmpBook.setDateAdded(this.getDateAdded());
+		tmpBook.setId(this.getId());
+		return tmpBook;
+	}
+	
 	public String toString() {
 		return "Book - ID: " + this.id + " - " + this.title + " - " + this.category + " - " + this.authors
 				+ " - " + this.content + ": " + this.cost + " $";

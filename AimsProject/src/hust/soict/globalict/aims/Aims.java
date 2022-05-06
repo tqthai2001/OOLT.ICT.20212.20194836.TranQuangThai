@@ -17,6 +17,7 @@ public class Aims {
 		System.out.println("1. View store");
 		System.out.println("2. Update store");
 		System.out.println("3. See current cart");
+		System.out.println("4. View store (Split Book - DVD)");
 		System.out.println("0. Exit");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2-3");
@@ -86,6 +87,11 @@ public class Aims {
 			
 			switch (mainChoice) {
 			case 0: break;
+			case 4:
+			{
+				anItem.viewStoreSpecific();
+				break;
+			}
 //			__________VIEW STORE__________
 			case 1:
 			{
@@ -180,8 +186,7 @@ public class Aims {
 							}
 							case 4:
 							{
-								Media luckyItem = anOrder.getALuckyItem();
-								System.out.println("Lucky Item: ID: " + luckyItem.getId() + " - " + luckyItem.getTitle());
+								anOrder.updateLuckyItemInCart();
 								break;
 							}
 							case 5:
@@ -310,8 +315,7 @@ public class Aims {
 					}
 					case 4:
 					{
-						Media luckyItem = anOrder.getALuckyItem();
-						System.out.println("Lucky Item: ID: " + luckyItem.getId() + " - " + luckyItem.getTitle());
+						anOrder.updateLuckyItemInCart();
 						break;
 					}
 					case 5:

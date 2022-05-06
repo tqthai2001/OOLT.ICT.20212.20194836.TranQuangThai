@@ -1,7 +1,10 @@
 package hust.soict.globalict.aims.store;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import hust.soict.globalict.aims.media.Book;
+import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.aims.media.Media;
 
 public class Store {
@@ -48,6 +51,47 @@ public class Store {
 		else {
 			for (int i = 1; i <= itemsInStore.size(); i++) {
 				System.out.println(i + ". " + itemsInStore.get(i-1).toString());
+			}
+		}
+		System.out.println("***************************************************");
+	}
+	
+	public void viewStoreSpecific() {
+		ArrayList<Media> dvdInStore = new ArrayList<Media>();
+		System.out.println("***********************STORE***********************");
+		if (itemsInStore.size() <= 0) System.out.println("Store is empty!");
+		else {
+			System.out.println("----------BOOK----------");
+			for (int i = 1; i <= itemsInStore.size(); i++) {
+				if (itemsInStore.get(i-1) instanceof Book) {
+//					System.out.println(i + ". " + itemsInStore.get(i-1).toString());
+					itemsInStore.get(i-1).seeDetail();
+					System.out.println("");
+				}
+				else if (itemsInStore.get(i-1) instanceof DigitalVideoDisc) {
+					dvdInStore.add(itemsInStore.get(i-1));
+				}
+			}
+//			Sort DVD in store
+			for (int i = 0; i < dvdInStore.size() - 1; i++) {
+				for (int j = 0; j < dvdInStore.size() - i - 1; j++) {
+					if ((dvdInStore.get(j).getTitle().compareToIgnoreCase(dvdInStore.get(j+1).getTitle())) > 0) {
+						Collections.swap(dvdInStore, j, j+1);
+					}
+					else if ((dvdInStore.get(j).getTitle().compareToIgnoreCase(dvdInStore.get(j+1).getTitle())) == 0
+							&& dvdInStore.get(j).getCost() < dvdInStore.get(j+1).getCost()) {
+						Collections.swap(dvdInStore, j, j+1);
+					}
+//					else if ((dvdInStore.get(j).getTitle().compareToIgnoreCase(dvdInStore.get(j+1).getTitle())) == 0
+//							&& dvdInStore.get(j).getCost() == dvdInStore.get(j+1).getCost()
+//							&& dvdInStore.get(j).getTitle().length() < dvdInStore.get(j+1).getTitle().length()) {
+//						Collections.swap(dvdInStore, j, j+1);
+//					}
+				}
+			}
+			System.out.println("----------DVD----------");
+			for (int i = 1; i <= dvdInStore.size(); i++) {
+				System.out.println(dvdInStore.get(i-1).toString());
 			}
 		}
 		System.out.println("***************************************************");
