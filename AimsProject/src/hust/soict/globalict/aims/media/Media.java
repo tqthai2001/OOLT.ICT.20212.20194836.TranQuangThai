@@ -52,17 +52,6 @@ public class Media {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public boolean isMatch(String title) {
-		String [] tmpTitle = title.split(" ");
-		String [] tmpMediaTitle = this.title.split(" ");
-		for (int i = 0; i < tmpTitle.length; i++) {
-			for (int j = 0; j < tmpMediaTitle.length; j++) {
-				if (tmpMediaTitle[j].toLowerCase().contains(tmpTitle[i].toLowerCase())) return true;
-			}
-		}
-		return false;
-	}
-	
 	public Media copyData() {
 		Media tmpMedia = new Media();
 		tmpMedia.setId(this.id);
@@ -81,6 +70,17 @@ public class Media {
 	public void seeDetail() {
 		System.out.println("ID: " + this.id + " - " + this.title + " - " + this.category +
 				": " + this.cost + " $");
+	}
+	
+	public boolean isMatch(String title) {
+		String [] tmpTitle = title.split(" ");
+		String [] tmpMediaTitle = this.title.split(" ");
+		for (int i = 0; i < tmpTitle.length; i++) {
+			for (int j = 0; j < tmpMediaTitle.length; j++) {
+				if (tmpMediaTitle[j].toLowerCase().contains(tmpTitle[i].toLowerCase())) return true;
+			}
+		}
+		return false;
 	}
 
 }
