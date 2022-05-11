@@ -50,6 +50,26 @@ public class Media {
 	
 	public Media() {
 		// TODO Auto-generated constructor stub
+		super();
+		this.dateAdded = LocalDate.now();
+		nbMedia += 1;
+		this.id = nbMedia;
+	}
+	public Media(String title, String category, float cost) {
+		super();
+		this.title = title;
+		this.category = category;
+		this.cost = cost;
+		this.dateAdded = LocalDate.now();
+		nbMedia += 1;
+		this.id = nbMedia;
+	}
+	public Media(String title) {
+		super();
+		this.title = title;
+		this.dateAdded = LocalDate.now();
+		nbMedia += 1;
+		this.id = nbMedia;
 	}
 	
 	public Media copyData() {

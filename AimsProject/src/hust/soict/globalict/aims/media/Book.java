@@ -1,6 +1,5 @@
 package hust.soict.globalict.aims.media;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,14 +39,8 @@ public class Book extends Media {
 		// TODO Auto-generated constructor stub
 	}
 	public Book(String title, String category, String content, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
+		super(title, category, cost);
 		this.content = content;
-		this.cost = cost;
-		this.dateAdded = LocalDate.now();
-		nbMedia += 1;
-		this.id = nbMedia;
 	}
 	
 	public Book copyData() {

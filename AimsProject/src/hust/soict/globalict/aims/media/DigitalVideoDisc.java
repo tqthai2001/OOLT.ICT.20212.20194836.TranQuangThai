@@ -1,7 +1,5 @@
 package hust.soict.globalict.aims.media;
 
-import java.time.LocalDate;
-
 public class DigitalVideoDisc extends Media {
 	private String director;
 	private int length;
@@ -24,41 +22,19 @@ public class DigitalVideoDisc extends Media {
 	
 	//	Constructor
 	public DigitalVideoDisc(String title) {
-		super();
-		this.title = title;
-		this.dateAdded = LocalDate.now();
-		nbMedia += 1;
-		this.id = nbMedia;
+		super(title);
 	}
 	public DigitalVideoDisc(String title, String category, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
-		this.cost = cost;
-		this.dateAdded = LocalDate.now();
-		nbMedia += 1;
-		this.id = nbMedia;
+		super(title, category, cost);
 	}
 	public DigitalVideoDisc(String title, String category, String director, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
+		super(title, category, cost);
 		this.director = director;
-		this.cost = cost;
-		this.dateAdded = LocalDate.now();
-		nbMedia += 1;
-		this.id = nbMedia;
 	}
 	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-		super();
-		this.title = title;
-		this.category = category;
+		super(title, category, cost);
 		this.director = director;
 		this.length = length;
-		this.cost = cost;
-		this.dateAdded = LocalDate.now();
-		nbMedia += 1;
-		this.id = nbMedia;
 	}
 	
 	public DigitalVideoDisc copyData() {
