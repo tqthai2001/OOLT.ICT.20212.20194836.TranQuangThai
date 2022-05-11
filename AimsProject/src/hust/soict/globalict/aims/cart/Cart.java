@@ -53,12 +53,17 @@ public class Cart {
 	}
 	
 	public void updateLuckyItemInCart() {
-		Media luckyItem = getALuckyItem();
-		Media copyLuckyItem = luckyItem.copyData();
-		copyLuckyItem.setCost(0f);
-		itemsOrdered.remove(luckyItem);
-		itemsOrdered.add(copyLuckyItem);
-		System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+		if (itemsOrdered.size() > 0) {
+			Media luckyItem = getALuckyItem();
+			Media copyLuckyItem = luckyItem.copyData();
+			copyLuckyItem.setCost(0f);
+			itemsOrdered.remove(luckyItem);
+			itemsOrdered.add(copyLuckyItem);
+			System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+		}
+		else {
+			System.out.println("Empty cart! Can not get lucky item.");
+		}
 	}
 
 	public float totalCost() {
