@@ -1,5 +1,6 @@
 package hust.soict.globalict.aims.media;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,14 +24,12 @@ public class Book extends Media {
 			System.out.println("Author is already!");
 		else {
 			authors.add(authorName);
-//			System.out.println("Add successfully.");
 		}
 	}
 	
 	public void removeAuthor(String authorName) {
 		if (authors.contains(authorName)) {
 			authors.remove(authorName);
-//			System.out.println("Remove successfully.");
 		}
 		else System.out.println("Author is not in list!");
 	}
@@ -42,14 +41,16 @@ public class Book extends Media {
 		super(title, category, cost);
 		this.content = content;
 	}
+	public Book(int id, String title, String category, float cost, LocalDate dateAdded, List<String> authors, String content) {
+		super(id, title, category, cost, dateAdded);
+		this.authors = authors;
+		this.content = content;
+	}
 	
-//	public Book copyData() {
-//		Book tmpBook = new Book(this.title, this.category, this.content, this.cost);
-//		tmpBook.setAuthors(this.getAuthors());
-//		tmpBook.setDateAdded(this.getDateAdded());
-//		tmpBook.setId(this.getId());
-//		return tmpBook;
-//	}
+	public Book copyData() {
+		Book tmpBook = new Book(this.id, this.title, this.category, 0f, this.dateAdded, this.authors, this.content);
+		return tmpBook;
+	}
 	
 	public String toString() {
 		return "Book - ID: " + this.id + " - " + this.title + " - " + this.category + " - " + this.authors

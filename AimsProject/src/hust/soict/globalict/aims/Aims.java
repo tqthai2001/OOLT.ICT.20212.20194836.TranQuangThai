@@ -4,8 +4,10 @@ import java.util.Scanner;
 
 import hust.soict.globalict.aims.cart.Cart;
 import hust.soict.globalict.aims.media.Book;
+import hust.soict.globalict.aims.media.CompactDisc;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.aims.media.Media;
+import hust.soict.globalict.aims.media.Track;
 import hust.soict.globalict.aims.store.Store;
 
 public class Aims {
@@ -27,7 +29,8 @@ public class Aims {
 		System.out.println("--------------------------------");
 		System.out.println("1. See a Media’s details");
 		System.out.println("2. Add a Media to cart");
-		System.out.println("3. See current cart");
+		System.out.println("3. Play a Media in store");
+		System.out.println("4. See current cart");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2-3");
@@ -38,9 +41,10 @@ public class Aims {
 		System.out.println("--------------------------------");
 		System.out.println("1. Filter Medias in cart");
 		System.out.println("2. Sort Medias in cart");
-		System.out.println("3. Remove Media from cart");
-		System.out.println("4. Get a lucky item from cart");
-		System.out.println("5. Place order");
+		System.out.println("3. Play a Media in cart");
+		System.out.println("4. Remove Media from cart");
+		System.out.println("5. Get a lucky item from cart");
+		System.out.println("6. Place order");
 		System.out.println("0. Back");
 		System.out.println("--------------------------------");
 		System.out.println("Please choose a number: 0-1-2-3-4-5");
@@ -53,6 +57,7 @@ public class Aims {
 		Scanner scanner = new Scanner(System.in);
 		int mainChoice, storeChoice, cartChoice;
 		
+//		############################## DVD ##############################
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
 				"Animation", "Roger Allers", 87, 19.95f);
 		
@@ -68,16 +73,37 @@ public class Aims {
 		
 		DigitalVideoDisc dvd5 = new DigitalVideoDisc("Avengers",
 				"Science Fiction", "Cruise", 99, 93.96f);
-//		**********************************************************
 		
+//		############################## BOOK ##############################		
 		Book book1 = new Book("Conan", "Manga", "Special drama for the live-action of Detective Conan", 25.75f);
 		book1.addAuthor("Gosho");
-		book1.addAuthor("Thai");
+		book1.addAuthor("Howard");
 		
 		Book book2 = new Book("Doraemon", "Comic", "I can can the can, but the can cannot can me", 56.78f);
 		book2.addAuthor("Fujio");
 		
-		anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2);
+		Book book3 = new Book("Elsa", "Comic", "East or West, home is best", 12.34f);
+		book3.addAuthor("Robert");
+		book3.addAuthor("Camp");
+		book3.addAuthor("Carter");
+		
+//		############################## TRACK ##############################
+		Track track1 = new Track("Bang Bang", 3);
+		Track track2 = new Track("Bed", 3);
+		Track track3 = new Track("Friday", 2);
+		Track track4 = new Track("Follow You", 5);
+		Track track5 = new Track("Baby Love", 5);
+
+//		############################## CD ##############################
+		CompactDisc cd1 = new CompactDisc("Workout Top Songs", "Power Music", "Spring", "V.A", 100.90f);
+		cd1.addTrack(track1);
+		cd1.addTrack(track2);
+		
+		CompactDisc cd2 = new CompactDisc("World", "Pop", "Summer", "Alan Walker", 125.15f);
+		cd2.addTrack(track3, track4, track5);
+		
+//		Add item to store
+		anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2, book3, cd1, cd2);
 		
 		do {
 			showMenu();
@@ -110,8 +136,6 @@ public class Aims {
 						Media tmpMedia = anItem.searchByTitle(tmpTitle);
 						if (tmpMedia == null) System.out.println("Invalid title!");
 						else {
-							
-//							System.out.println(tmpMedia.toString());
 							tmpMedia.seeDetail();
 							System.out.println("Do you want to add this Media to your cart?");
 							System.out.print("Type Y/N: ");
@@ -136,8 +160,15 @@ public class Aims {
 						}
 						break;
 					}
-//					__________SEE CURRENT CART__________
 					case 3:
+					{
+						System.out.println("Enter the ID of the Media: ");
+						int tmpID = scanner.nextInt();
+						anItem.playByID(tmpID);
+						break;
+					}
+//					__________SEE CURRENT CART__________
+					case 4:
 					{
 						do {
 							anOrder.printCartGeneral();
@@ -177,18 +208,25 @@ public class Aims {
 							}
 							case 3:
 							{
+								System.out.println("Enter the ID of the Media: ");
+								int tmpID = scanner.nextInt();
+								anOrder.playByID(tmpID);
+								break;
+							}
+							case 4:
+							{
 								System.out.print("Enter the title of the Media: ");
 								scanner.nextLine();
 								String tmpTitle = scanner.nextLine();
 								anOrder.removeByName(tmpTitle);
 								break;
 							}
-							case 4:
+							case 5:
 							{
 								anOrder.updateLuckyItemInCart();
 								break;
 							}
-							case 5:
+							case 6:
 							{
 								anOrder.emptyCart();
 								System.out.println("An order is created.");
@@ -217,8 +255,8 @@ public class Aims {
 				System.out.print("Type 1 or 2: ");
 				int choice = scanner.nextInt();
 				if (choice == 1) {
-					System.out.println("Do you want to ADD DVD (1) or ADD BOOK (2)?");
-					System.out.print("Type 1 or 2: ");
+					System.out.println("Do you want to ADD DVD (1) or ADD BOOK (2) or ADD CD (3)?");
+					System.out.print("Type 1 or 2 or 3: ");
 					int select = scanner.nextInt();
 					if (select == 1) {
 						System.out.print("Title: ");
@@ -249,6 +287,31 @@ public class Aims {
 						Book tmpBook = new Book(title, category, content, cost);
 						tmpBook.addAuthor(author);
 						anItem.addMedia(tmpBook);
+					}
+					else if (select == 3) {
+						System.out.print("Title: ");
+						scanner.nextLine();
+						String title = scanner.nextLine();
+						System.out.println("Category: ");
+						String category = scanner.nextLine();
+						System.out.println("Director: ");
+						String director = scanner.nextLine();
+						System.out.println("Artist: ");
+						String artist = scanner.nextLine();
+						System.out.println("Cost: ");
+						float cost = scanner.nextFloat();
+						System.out.println("Number of tracks: ");
+						int num = scanner.nextInt();
+						CompactDisc tmpCompactDisc = new CompactDisc(title, category, director, artist, cost);
+						for (int i = 0; i < num; i++) {
+							System.out.println("Track title: ");
+							scanner.nextLine();
+							String trackTitle = scanner.nextLine();
+							System.out.println("Track length: ");
+							int trackLength = scanner.nextInt();
+							tmpCompactDisc.addTrack(new Track(trackTitle, trackLength));
+						}
+						anItem.addMedia(tmpCompactDisc);
 					}
 					else System.out.println("Unexpected value: " + choice);
 				}
@@ -306,18 +369,25 @@ public class Aims {
 					}
 					case 3:
 					{
+						System.out.println("Enter the ID of the Media: ");
+						int tmpID = scanner.nextInt();
+						anOrder.playByID(tmpID);
+						break;
+					}
+					case 4:
+					{
 						System.out.print("Enter the title of the Media: ");
 						scanner.nextLine();
 						String tmpTitle = scanner.nextLine();
 						anOrder.removeByName(tmpTitle);
 						break;
 					}
-					case 4:
+					case 5:
 					{
 						anOrder.updateLuckyItemInCart();
 						break;
 					}
-					case 5:
+					case 6:
 					{
 						anOrder.emptyCart();
 						System.out.println("An order is created.");
@@ -334,7 +404,6 @@ public class Aims {
 				System.out.println("Unexpected value: " + mainChoice);
 			}
 		} while (mainChoice != 0);
-		
 	}
 
 }

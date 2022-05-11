@@ -1,6 +1,8 @@
 package hust.soict.globalict.aims.media;
 
-public class DigitalVideoDisc extends Disc {
+import java.time.LocalDate;
+
+public class DigitalVideoDisc extends Disc implements Playable {
 	
 	//	Constructor
 	public DigitalVideoDisc(String title) {
@@ -15,13 +17,15 @@ public class DigitalVideoDisc extends Disc {
 	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
 		super(title, category, director, length, cost);
 	}
+	public DigitalVideoDisc(int id, String title, String category, float cost, LocalDate dateAdded, String director, int length) {
+		super(id, title, category, cost, dateAdded, director, length);
+	}
 	
-//	public DigitalVideoDisc copyData() {
-//		DigitalVideoDisc tmDigitalVideoDisc = new DigitalVideoDisc(this.title, this.category, this.director, this.length, this.cost);
-//		tmDigitalVideoDisc.setId(this.id);
-//		tmDigitalVideoDisc.setDateAdded(this.dateAdded);
-//		return tmDigitalVideoDisc;
-//	}
+	public DigitalVideoDisc copyData() {
+		DigitalVideoDisc tmpDigitalVideoDisc =
+				new DigitalVideoDisc(this.id, this.title, this.category, 0f, this.dateAdded, this.director, this.length);
+		return tmpDigitalVideoDisc;
+	}
 	
 	public String toString() {
 		return "DVD - ID: " + this.id + " - " + this.title + " - " + this.category + " - " + this.director
@@ -43,4 +47,13 @@ public class DigitalVideoDisc extends Disc {
 		}
 		return false;
 	}
+	
+	public void play() {
+		if (this.getLength() <= 0) System.out.println("DVD cannot be played!");
+		else {
+			System.out.println("Playing DVD: " + this.getTitle());
+			System.out.println("DVD length: " + this.getLength());
+		}
+	}
+
 }

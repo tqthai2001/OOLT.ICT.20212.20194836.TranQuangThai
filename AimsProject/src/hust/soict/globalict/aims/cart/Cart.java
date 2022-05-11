@@ -3,6 +3,9 @@ package hust.soict.globalict.aims.cart;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import hust.soict.globalict.aims.media.Book;
+import hust.soict.globalict.aims.media.CompactDisc;
+import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.aims.media.Media;
 
 public class Cart {
@@ -55,11 +58,24 @@ public class Cart {
 	public void updateLuckyItemInCart() {
 		if (itemsOrdered.size() > 0) {
 			Media luckyItem = getALuckyItem();
-			Media copyLuckyItem = luckyItem.copyData();
-			copyLuckyItem.setCost(0f);
-			itemsOrdered.remove(luckyItem);
-			itemsOrdered.add(copyLuckyItem);
-			System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+			if (luckyItem instanceof DigitalVideoDisc) {
+				DigitalVideoDisc copyLuckyItem = ((DigitalVideoDisc) luckyItem).copyData();
+				itemsOrdered.remove(luckyItem);
+				itemsOrdered.add(copyLuckyItem);
+				System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+			}
+			else if (luckyItem instanceof Book) {
+				Book copyLuckyItem = ((Book) luckyItem).copyData();
+				itemsOrdered.remove(luckyItem);
+				itemsOrdered.add(copyLuckyItem);
+				System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+			}
+			else if (luckyItem instanceof CompactDisc) {
+				CompactDisc copyLuckyItem = ((CompactDisc) luckyItem).copyData();
+				itemsOrdered.remove(luckyItem);
+				itemsOrdered.add(copyLuckyItem);
+				System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+			}
 		}
 		else {
 			System.out.println("Empty cart! Can not get lucky item.");
@@ -87,6 +103,27 @@ public class Cart {
 	
 	public void emptyCart() {
 		itemsOrdered.clear();
+	}
+	
+	public void playByID(int id) {
+		int count = 0;
+		for (int i = 0; i < itemsOrdered.size(); i++) {
+			if (itemsOrdered.get(i).getId() == id) {
+				if (itemsOrdered.get(i) instanceof Book) {
+					System.out.println("Book cannot be played!");
+				}
+				else if (itemsOrdered.get(i) instanceof DigitalVideoDisc) {
+					DigitalVideoDisc tmpDVD = (DigitalVideoDisc) itemsOrdered.get(i);
+					tmpDVD.play();
+				}
+				else if (itemsOrdered.get(i) instanceof CompactDisc) {
+					CompactDisc tmpCD = (CompactDisc) itemsOrdered.get(i);
+					tmpCD.play();
+				}
+				count += 1;
+			}
+		}
+		if (count == 0) System.out.println("No match is found.");
 	}
 	
 	public void searchByID(int id) {

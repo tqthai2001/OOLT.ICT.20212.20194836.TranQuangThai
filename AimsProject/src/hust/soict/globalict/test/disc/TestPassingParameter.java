@@ -32,26 +32,26 @@ public class TestPassingParameter {
 		int tmpID = dvd1.getId();
 		LocalDate tmpDateAdded = dvd1.getDateAdded();
 		
-		dvd1.setTitle(dvd2.getTitle());
-		dvd1.setCategory(dvd2.getCategory());
-		dvd1.setDirector(dvd2.getDirector());
-		dvd1.setLength(dvd2.getLength());
-		dvd1.setCost(dvd2.getCost());
-		dvd1.setId(dvd2.getId());
-		dvd1.setDateAdded(dvd2.getDateAdded());
-		
-		dvd2.setTitle(tmpTitle);
-		dvd2.setCategory(tmpCategory);
-		dvd2.setDirector(tmpDirector);
-		dvd2.setLength(tmpLength);
-		dvd2.setCost(tmpCost);
-		dvd2.setId(tmpID);
-		dvd2.setDateAdded(tmpDateAdded);
+//		dvd1.setTitle(dvd2.getTitle());
+//		dvd1.setCategory(dvd2.getCategory());
+//		dvd1.setDirector(dvd2.getDirector());
+//		dvd1.setLength(dvd2.getLength());
+//		dvd1.setCost(dvd2.getCost());
+//		dvd1.setId(dvd2.getId());
+//		dvd1.setDateAdded(dvd2.getDateAdded());
+//		
+//		dvd2.setTitle(tmpTitle);
+//		dvd2.setCategory(tmpCategory);
+//		dvd2.setDirector(tmpDirector);
+//		dvd2.setLength(tmpLength);
+//		dvd2.setCost(tmpCost);
+//		dvd2.setId(tmpID);
+//		dvd2.setDateAdded(tmpDateAdded);
 	}
 	
 	public static void changeTitle(DigitalVideoDisc dvd, String title) {
 		String oldTitle = dvd.getTitle();
-		dvd.setTitle(title);
+//		dvd.setTitle(title);
 		dvd = new DigitalVideoDisc(oldTitle);
 	}
 }

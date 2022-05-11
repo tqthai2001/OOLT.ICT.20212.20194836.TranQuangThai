@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import hust.soict.globalict.aims.media.Book;
+import hust.soict.globalict.aims.media.CompactDisc;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.aims.media.Media;
 
@@ -61,9 +62,9 @@ public class Store {
 		System.out.println("***********************STORE***********************");
 		if (itemsInStore.size() <= 0) System.out.println("Store is empty!");
 		else {
-			System.out.println("----------BOOK----------");
+			System.out.println("---------- BOOK & CD ----------");
 			for (int i = 1; i <= itemsInStore.size(); i++) {
-				if (itemsInStore.get(i-1) instanceof Book) {
+				if (itemsInStore.get(i-1) instanceof Book || itemsInStore.get(i-1) instanceof CompactDisc) {
 //					System.out.println(i + ". " + itemsInStore.get(i-1).toString());
 					itemsInStore.get(i-1).seeDetail();
 					System.out.println("");
@@ -82,14 +83,9 @@ public class Store {
 							&& dvdInStore.get(j).getCost() < dvdInStore.get(j+1).getCost()) {
 						Collections.swap(dvdInStore, j, j+1);
 					}
-//					else if ((dvdInStore.get(j).getTitle().compareToIgnoreCase(dvdInStore.get(j+1).getTitle())) == 0
-//							&& dvdInStore.get(j).getCost() == dvdInStore.get(j+1).getCost()
-//							&& dvdInStore.get(j).getTitle().length() < dvdInStore.get(j+1).getTitle().length()) {
-//						Collections.swap(dvdInStore, j, j+1);
-//					}
 				}
 			}
-			System.out.println("----------DVD----------");
+			System.out.println("---------- DVD ----------");
 			for (int i = 1; i <= dvdInStore.size(); i++) {
 				System.out.println(dvdInStore.get(i-1).toString());
 			}
@@ -104,5 +100,26 @@ public class Store {
 			}
 		}
 		return null;
+	}
+	
+	public void playByID(int id) {
+		int count = 0;
+		for (int i = 0; i < itemsInStore.size(); i++) {
+			if (itemsInStore.get(i).getId() == id) {
+				if (itemsInStore.get(i) instanceof Book) {
+					System.out.println("Book cannot be played!");
+				}
+				else if (itemsInStore.get(i) instanceof DigitalVideoDisc) {
+					DigitalVideoDisc tmpDVD = (DigitalVideoDisc) itemsInStore.get(i);
+					tmpDVD.play();
+				}
+				else if (itemsInStore.get(i) instanceof CompactDisc) {
+					CompactDisc tmpCD = (CompactDisc) itemsInStore.get(i);
+					tmpCD.play();
+				}
+				count += 1;
+			}
+		}
+		if (count == 0) System.out.println("No match is found.");
 	}
 }

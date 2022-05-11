@@ -38,6 +38,13 @@ public abstract class Media {
 		nbMedia += 1;
 		this.id = nbMedia;
 	}
+	public Media(String title) {
+		super();
+		this.title = title;
+		this.dateAdded = LocalDate.now();
+		nbMedia += 1;
+		this.id = nbMedia;
+	}
 	public Media(String title, String category, float cost) {
 		super();
 		this.title = title;
@@ -47,23 +54,14 @@ public abstract class Media {
 		nbMedia += 1;
 		this.id = nbMedia;
 	}
-	public Media(String title) {
+	public Media(int id, String title, String category, float cost, LocalDate dateAdded) {
 		super();
+		this.id = id;
 		this.title = title;
-		this.dateAdded = LocalDate.now();
-		nbMedia += 1;
-		this.id = nbMedia;
+		this.category = category;
+		this.cost = cost;
+		this.dateAdded = dateAdded;
 	}
-	
-//	public Media copyData() {
-//		Media tmpMedia = new Media();
-//		tmpMedia.setId(this.id);
-//		tmpMedia.setTitle(this.title);
-//		tmpMedia.setCategory(this.category);
-//		tmpMedia.setCost(this.cost);
-//		tmpMedia.setDateAdded(this.dateAdded);
-//		return tmpMedia;
-//	}
 	
 	public String toString() {
 		return "ID: " + this.id + " - " + this.title + " - " + this.category +
