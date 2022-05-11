@@ -2,7 +2,7 @@ package hust.soict.globalict.aims.media;
 
 import java.time.LocalDate;
 
-public class Media {
+public abstract class Media {
 
 	protected int id;
 	protected String title;
@@ -31,23 +31,6 @@ public class Media {
 		return dateAdded;
 	}
 
-//	Setter
-	public void setId(int id) {
-		this.id = id;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
-	public void setCost(float cost) {
-		this.cost = cost;
-	}
-	public void setDateAdded(LocalDate dateAdded) {
-		this.dateAdded = dateAdded;
-	}
-	
 	public Media() {
 		// TODO Auto-generated constructor stub
 		super();
@@ -72,15 +55,15 @@ public class Media {
 		this.id = nbMedia;
 	}
 	
-	public Media copyData() {
-		Media tmpMedia = new Media();
-		tmpMedia.setId(this.id);
-		tmpMedia.setTitle(this.title);
-		tmpMedia.setCategory(this.category);
-		tmpMedia.setCost(this.cost);
-		tmpMedia.setDateAdded(this.dateAdded);
-		return tmpMedia;
-	}
+//	public Media copyData() {
+//		Media tmpMedia = new Media();
+//		tmpMedia.setId(this.id);
+//		tmpMedia.setTitle(this.title);
+//		tmpMedia.setCategory(this.category);
+//		tmpMedia.setCost(this.cost);
+//		tmpMedia.setDateAdded(this.dateAdded);
+//		return tmpMedia;
+//	}
 	
 	public String toString() {
 		return "ID: " + this.id + " - " + this.title + " - " + this.category +

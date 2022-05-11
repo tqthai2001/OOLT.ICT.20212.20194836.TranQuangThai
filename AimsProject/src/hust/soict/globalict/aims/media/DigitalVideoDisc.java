@@ -1,24 +1,6 @@
 package hust.soict.globalict.aims.media;
 
-public class DigitalVideoDisc extends Media {
-	private String director;
-	private int length;
-	
-	//	Setter
-	public void setDirector(String director) {
-		this.director = director;
-	}
-	public void setLength(int length) {
-		this.length = length;
-	}
-	
-	//	Getter
-	public String getDirector() {
-		return director;
-	}
-	public int getLength() {
-		return length;
-	}
+public class DigitalVideoDisc extends Disc {
 	
 	//	Constructor
 	public DigitalVideoDisc(String title) {
@@ -28,21 +10,18 @@ public class DigitalVideoDisc extends Media {
 		super(title, category, cost);
 	}
 	public DigitalVideoDisc(String title, String category, String director, float cost) {
-		super(title, category, cost);
-		this.director = director;
+		super(title, category, director, cost);
 	}
 	public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-		super(title, category, cost);
-		this.director = director;
-		this.length = length;
+		super(title, category, director, length, cost);
 	}
 	
-	public DigitalVideoDisc copyData() {
-		DigitalVideoDisc tmDigitalVideoDisc = new DigitalVideoDisc(this.title, this.category, this.director, this.length, this.cost);
-		tmDigitalVideoDisc.setId(this.id);
-		tmDigitalVideoDisc.setDateAdded(this.dateAdded);
-		return tmDigitalVideoDisc;
-	}
+//	public DigitalVideoDisc copyData() {
+//		DigitalVideoDisc tmDigitalVideoDisc = new DigitalVideoDisc(this.title, this.category, this.director, this.length, this.cost);
+//		tmDigitalVideoDisc.setId(this.id);
+//		tmDigitalVideoDisc.setDateAdded(this.dateAdded);
+//		return tmDigitalVideoDisc;
+//	}
 	
 	public String toString() {
 		return "DVD - ID: " + this.id + " - " + this.title + " - " + this.category + " - " + this.director
