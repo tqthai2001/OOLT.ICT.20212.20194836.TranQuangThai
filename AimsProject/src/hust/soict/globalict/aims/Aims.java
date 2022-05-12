@@ -51,6 +51,12 @@ public class Aims {
 	}
 	
 	public static void main(String[] args) {
+//		MemoryDaemon memDaemon = new MemoryDaemon();
+//		memDaemon.run();
+		Thread thread = new Thread(new MemoryDaemon());
+		thread.setDaemon(true);
+		thread.start();
+		
 		// TODO Auto-generated method stub
 		Cart anOrder = new Cart();
 		Store anItem = new Store();
@@ -65,8 +71,8 @@ public class Aims {
 				"Science Fiction", "George Lucas", 87, 24.95f);
 		
 //		**********************************************************
-		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Avengers",
-				"Science Fiction", "Russo", 100, 90.91f);
+		DigitalVideoDisc dvd3 = new DigitalVideoDisc("Batman",
+				"Science Fiction", "Russo", 0, 90.91f);
 		
 		DigitalVideoDisc dvd4 = new DigitalVideoDisc("Avengers",
 				"Science Fiction", "Holland", 87, 93.96f);
@@ -102,8 +108,13 @@ public class Aims {
 		CompactDisc cd2 = new CompactDisc("World", "Pop", "Summer", "Alan Walker", 125.15f);
 		cd2.addTrack(track3, track4, track5);
 		
+		CompactDisc cd3 = new CompactDisc("Baby", "Rock", "Winter", "MTP", 78.98f);
+		cd3.addTrack(track5, track5); // add track has already in list
+		cd3.removeTrack(track5); // test CD length = 0
+		cd3.removeTrack(track1); // remove track not in list
+		
 //		Add item to store
-		anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2, book3, cd1, cd2);
+		anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2, book3, cd1, cd2, cd3);
 		
 		do {
 			showMenu();
