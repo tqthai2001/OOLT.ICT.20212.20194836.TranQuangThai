@@ -1,0 +1,5 @@
+1. If the passing object is not an instance of Media, what happens?
+- It's error. Because Java does not allow to compare two objects which are different data types.
+
+2. Which method(s) do you need to implement from this interface?
+- public int compareTo (Object o)

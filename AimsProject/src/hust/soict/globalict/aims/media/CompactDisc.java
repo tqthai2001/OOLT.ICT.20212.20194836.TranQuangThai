@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompactDisc extends Disc implements Playable, Comparable<CompactDisc> {
+public class CompactDisc extends Disc implements Playable {
 
 	private List<Track> tracks = new ArrayList<Track>();
 	private String artist;
@@ -101,12 +101,6 @@ public class CompactDisc extends Disc implements Playable, Comparable<CompactDis
 				tracks.get(i).play();
 			}
 		}
-	}
-	
-	@Override
-	public int compareTo(CompactDisc o) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

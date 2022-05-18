@@ -1,6 +1,6 @@
 package hust.soict.globalict.aims.media;
 
-public class Track implements Playable {
+public class Track implements Playable, Comparable<Track> {
 
 	private String title;
 	private int length;
@@ -36,6 +36,12 @@ public class Track implements Playable {
 			System.out.println("Playing Track: " + this.getTitle());
 			System.out.println("Track length: " + this.getLength());
 		}
+	}
+	
+	@Override
+	public int compareTo(Track track) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
