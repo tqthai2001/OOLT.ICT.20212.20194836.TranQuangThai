@@ -18,6 +18,14 @@ public class Track implements Playable {
 		this.length = length;
 	}
 	
+	public boolean equals(Object o) {
+		if (o instanceof Track) {
+			Track track = (Track) o;
+			if (track.title.equals(this.title) && track.length == this.length) return true;
+		}
+		return false;
+	}
+	
 	public String toString() {
 		return "Track: " + this.title + " - " + this.length;
 	}

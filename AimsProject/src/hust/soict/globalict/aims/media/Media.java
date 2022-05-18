@@ -63,6 +63,14 @@ public abstract class Media {
 		this.dateAdded = dateAdded;
 	}
 	
+	public boolean equals(Object o) {
+		if (o instanceof Media) {
+			Media media = (Media) o;
+			if (media.id == this.id) return true;
+		}
+		return false;
+	}
+	
 	public String toString() {
 		return "ID: " + this.id + " - " + this.title + " - " + this.category +
 				": " + this.cost + " $";
