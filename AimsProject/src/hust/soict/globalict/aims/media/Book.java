@@ -3,14 +3,16 @@ package hust.soict.globalict.aims.media;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Book extends Media {
 
 	private List<String> authors = new ArrayList<String>();
 	private String content;
+	List<String> contentTokens = new ArrayList<String>();
+	Map<String, Integer> wordFrequency = new TreeMap<String, Integer>();
 	
 	public List<String> getAuthors() {
 		return authors;
@@ -21,7 +23,7 @@ public class Book extends Media {
 
 	public void addAuthor(String authorName) {
 		if (authors.contains(authorName))
-			System.out.println("Author is already!");
+			System.out.println("Author: " + authorName + " is already in list!");
 		else {
 			authors.add(authorName);
 		}
@@ -31,7 +33,7 @@ public class Book extends Media {
 		if (authors.contains(authorName)) {
 			authors.remove(authorName);
 		}
-		else System.out.println("Author is not in list!");
+		else System.out.println("Author: " + authorName + " is not in list!");
 	}
 	
 	public Book() {
@@ -40,11 +42,13 @@ public class Book extends Media {
 	public Book(String title, String category, String content, float cost) {
 		super(title, category, cost);
 		this.content = content;
+		processContent();
 	}
 	public Book(int id, String title, String category, float cost, LocalDate dateAdded, List<String> authors, String content) {
 		super(id, title, category, cost, dateAdded);
 		this.authors = authors;
 		this.content = content;
+		processContent();
 	}
 	
 	public Book copyData() {
@@ -52,38 +56,50 @@ public class Book extends Media {
 		return tmpBook;
 	}
 	
+	public void processContent() {
+		String[] tokenList = content.toLowerCase().split("[, ?.@-]+");
+		for (int i = 0; i < tokenList.length; i++) {
+			contentTokens.add(tokenList[i]);
+		}
+		Collections.sort(contentTokens);
+		for (String token : contentTokens) {
+			if (wordFrequency.containsKey(token)) {
+				wordFrequency.put(token, wordFrequency.get(token) + 1);
+			}
+			else wordFrequency.put(token, 1);
+		}
+	}
+	
 	public String toString() {
-		return "Book - ID: " + this.id + " - " + this.title + " - " + this.category + " - " + this.authors
-				+ " - " + this.content + ": " + this.cost + " $";
+		String bookDetail = "Book - ID: " + this.id + " - " + this.title + " - " + this.category + " - "
+				+ this.authors + " - " + "Content Length: " + wordFrequency.size() + " - "
+				+ "Cost: " + this.cost + " $";
+		String bookFreq = "\nToken list & Word frequency:\n";
+		for (String token : wordFrequency.keySet()) {
+			bookFreq += (token + "\t");
+		}
+		bookFreq += "\n";
+		for (String token : wordFrequency.keySet()) {
+			bookFreq += (wordFrequency.get(token) + "\t");
+		}
+		bookDetail += bookFreq;
+		return bookDetail;
 	}
 	
 	public void seeDetail() {
-		Map<String, Integer> freqMap = new HashMap<>();
-		String[] word = content.toLowerCase().split("[, ?.@-]+");
-		for (int i = 0; i < word.length; i++) {
-			if (freqMap.containsKey(word[i])) {
-				freqMap.put(word[i], freqMap.get(word[i]) + 1);
-			}
-			else {
-				freqMap.put(word[i], 1);
-			}
+		String bookDetail = "Book - ID: " + this.id + " - " + this.title + " - " + this.category + " - "
+				+ this.authors + " - " + "Content Length: " + wordFrequency.size() + " - "
+				+ "Cost: " + this.cost + " $";
+		String bookFreq = "\nToken list & Word frequency:\n";
+		for (String token : wordFrequency.keySet()) {
+			bookFreq += (token + "\t");
 		}
-//		Sort token list
-		ArrayList<String> sortedKeys = new ArrayList<String>(freqMap.keySet());
-		Collections.sort(sortedKeys);
-		
-		System.out.println("Book - ID: " + this.id + " - " + this.title + " - " + this.category + " - "
-			+ this.authors + " - " + "Content Length: " + freqMap.size() + " - " + "Cost: " + this.cost + " $");
-		System.out.print("Token: ");
-		for (String key : sortedKeys) {
-			System.out.print(key + "\t");
+		bookFreq += "\n";
+		for (String token : wordFrequency.keySet()) {
+			bookFreq += (wordFrequency.get(token) + "\t");
 		}
-		System.out.println("");
-		System.out.print("Freq:  ");
-		for (String key : sortedKeys) {
-			System.out.print(freqMap.get(key) + "\t");
-		}
-		System.out.println("");
+		bookDetail += bookFreq;
+		System.out.println(bookDetail);
 	}
 
 }

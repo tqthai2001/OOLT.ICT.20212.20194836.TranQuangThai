@@ -49,7 +49,7 @@ public class DigitalVideoDisc extends Disc implements Playable {
 	}
 	
 	public void play() {
-		if (this.getLength() <= 0) System.out.println("DVD cannot be played!");
+		if (this.getLength() <= 0) System.out.println("DVD: " + this.getTitle() + " cannot be played!");
 		else {
 			System.out.println("Playing DVD: " + this.getTitle());
 			System.out.println("DVD length: " + this.getLength());

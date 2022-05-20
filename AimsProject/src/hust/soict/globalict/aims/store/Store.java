@@ -52,6 +52,7 @@ public class Store {
 		else {
 			for (int i = 1; i <= itemsInStore.size(); i++) {
 				System.out.println(i + ". " + itemsInStore.get(i-1).toString());
+				System.out.println("");
 			}
 		}
 		System.out.println("***************************************************");
@@ -65,7 +66,6 @@ public class Store {
 			System.out.println("---------- BOOK & CD ----------");
 			for (int i = 1; i <= itemsInStore.size(); i++) {
 				if (itemsInStore.get(i-1) instanceof Book || itemsInStore.get(i-1) instanceof CompactDisc) {
-//					System.out.println(i + ". " + itemsInStore.get(i-1).toString());
 					itemsInStore.get(i-1).seeDetail();
 					System.out.println("");
 				}
@@ -91,6 +91,15 @@ public class Store {
 			}
 		}
 		System.out.println("***************************************************");
+	}
+	
+	public Media searchByID(int id) {
+		for (int i = 0; i < itemsInStore.size(); i++) {
+			if (id == itemsInStore.get(i).getId()) {
+				return itemsInStore.get(i);
+			}
+		}
+		return null;
 	}
 	
 	public Media searchByTitle(String title) {

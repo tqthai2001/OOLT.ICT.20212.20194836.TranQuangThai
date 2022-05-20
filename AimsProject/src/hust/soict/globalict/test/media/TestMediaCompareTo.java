@@ -33,10 +33,10 @@ public class TestMediaCompareTo {
 				"Science Fiction", "Cruise", 99, 93.96f);
 
 		collection.add(dvd1);
-		collection.add(dvd2);
 		collection.add(dvd3);
-		collection.add(dvd4);
 		collection.add(dvd5);
+		collection.add(dvd2);
+		collection.add(dvd4);
 		
 		Iterator<Media> iterator = collection.iterator();
 		

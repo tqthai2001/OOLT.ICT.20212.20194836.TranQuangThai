@@ -17,24 +17,44 @@ public class Cart {
 	}
 	
 	public void addMedia(Media media) {
-		if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
-			itemsOrdered.add(media);
-			System.out.println("The media: " + media.getTitle() + " has been added.");
+		int count = 0;
+		for (int i = 0; i < itemsOrdered.size(); i++) {
+			if (itemsOrdered.get(i).equals(media)) {
+				System.out.println("The media: " + media.getTitle() + " is already in the cart!");
+				count += 1;
+			}
 		}
-		else {
-			System.out.println("The cart is almost full.");
+		if (count == 0) {
+			if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
+				itemsOrdered.add(media);
+				System.out.println("The media: " + media.getTitle() + " has been added.");
+			}
+			else {
+				System.out.println("The cart is almost full.");
+			}
 		}
 	}
 	
 	public void addMedia(Media ... mediaList) {
-		if ((mediaList.length + itemsOrdered.size()) < MAX_NUMBERS_ORDERED) {
-			for (int i = 0; i < mediaList.length; i++) {
-				itemsOrdered.add(mediaList[i]);
-				System.out.println("The media: " + mediaList[i].getTitle() + " has been added.");
+		for (int i = 0; i < mediaList.length; i++) {
+			int count = 0;
+			for (int j = 0; j < itemsOrdered.size(); j++) {
+				if (itemsOrdered.get(j).equals(mediaList[i])) {
+					System.out.println("The media: " + mediaList[i].getTitle() + " is already in the cart!");
+					count += 1;
+				}
 			}
-		}
-		else {
-			System.out.println("Can not add " + mediaList.length + " media(s).");
+			if (count == 0) {
+				if ((mediaList.length + itemsOrdered.size()) < MAX_NUMBERS_ORDERED) {
+					for (int k = 0; k < mediaList.length; k++) {
+						itemsOrdered.add(mediaList[k]);
+						System.out.println("The media: " + mediaList[k].getTitle() + " has been added.");
+					}
+				}
+				else {
+					System.out.println("Can not add " + mediaList.length + " media(s).");
+				}
+			}
 		}
 	}
 	
@@ -42,11 +62,15 @@ public class Cart {
 		if (itemsOrdered.size() <= 0)
 			System.out.println("Cart is empty.");
 		else {
-			if (itemsOrdered.contains(media)) {
-				itemsOrdered.remove(media);
-				System.out.println("The media: " + media.getTitle() + " has been removed.");
+			int count = 0;
+			for (int i = 0; i < itemsOrdered.size(); i++) {
+				if (itemsOrdered.get(i).equals(media)) {
+					itemsOrdered.remove(media);
+					System.out.println("The media: " + media.getTitle() + " has been removed.");
+					count += 1;
+				}
 			}
-			else System.out.println("The media: " + media.getTitle() + " is not in the cart.");
+			if (count == 0) System.out.println("The media: " + media.getTitle() + " is not in the cart.");
 		}
 	}
 	
@@ -99,6 +123,17 @@ public class Cart {
 			}
 		}
 		if (count == 0) System.out.println("Invalid title!");
+	}
+	
+	public void removeByID(int id) {
+		int count = 0;
+		for (int i = 0; i < itemsOrdered.size(); i++) {
+			if (id == itemsOrdered.get(i).getId()) {
+				removeMedia(itemsOrdered.get(i));
+				count += 1;
+			}
+		}
+		if (count == 0) System.out.println("Invalid ID!");
 	}
 	
 	public void emptyCart() {
@@ -154,6 +189,7 @@ public class Cart {
 		else {
 			for (int i = 1; i <= itemsOrdered.size(); i++) {
 				System.out.println(i + ". " + itemsOrdered.get(i-1).toString());
+				System.out.println("");
 			}
 		}
 		System.out.println("Total cost: " + totalCost());
@@ -161,30 +197,14 @@ public class Cart {
 	}
 	
 	public void sortByAlphabetAndDecreasingCost() {
-		for (int i = 0; i < itemsOrdered.size() - 1; i++) {
-			for (int j = 0; j < itemsOrdered.size() - i - 1; j++) {
-				if ((itemsOrdered.get(j).getTitle().compareToIgnoreCase(itemsOrdered.get(j+1).getTitle())) > 0) {
-					Collections.swap(itemsOrdered, j, j+1);
-				}
-				else if ((itemsOrdered.get(j).getTitle().compareToIgnoreCase(itemsOrdered.get(j+1).getTitle())) == 0
-						&& itemsOrdered.get(j).getCost() < itemsOrdered.get(j+1).getCost()) {
-					Collections.swap(itemsOrdered, j, j+1);
-				}
-			}
-		}
+		Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
 	}
 	
 	public void sortByDecreasingCostAndAlphabet() {
-		for (int i = 0; i < itemsOrdered.size() - 1; i++) {
-			for (int j = 0; j < itemsOrdered.size() - i - 1; j++) {
-				if (itemsOrdered.get(j).getCost() < itemsOrdered.get(j+1).getCost()) {
-					Collections.swap(itemsOrdered, j, j+1);
-				}
-				else if (itemsOrdered.get(j).getCost() == itemsOrdered.get(j+1).getCost()
-						&& (itemsOrdered.get(j).getTitle().compareToIgnoreCase(itemsOrdered.get(j+1).getTitle())) > 0) {
-					Collections.swap(itemsOrdered, j, j+1);
-				}
-			}
-		}
+		Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+	}
+	
+	public void sortByAlphabetTitleCategory() {
+		Collections.sort(itemsOrdered);
 	}
 }

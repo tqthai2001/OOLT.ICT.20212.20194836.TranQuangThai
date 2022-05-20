@@ -37,8 +37,12 @@ public class CompactDisc extends Disc implements Playable {
 	}
 
 	public void addTrack(Track track) {
-		if (tracks.contains(track))
-			System.out.println("Track is already!");
+		int count = 0;
+		for (int i = 0; i < tracks.size(); i++) {
+			if (tracks.get(i).equals(track)) count += 1;
+		}
+		if (count != 0)
+			System.out.println("Track: " + track.getTitle() + " is already in CD!");
 		else {
 			tracks.add(track);
 		}
@@ -46,9 +50,12 @@ public class CompactDisc extends Disc implements Playable {
 	
 	public void addTrack(Track ... tracklist) {
 		for (int i = 0; i < tracklist.length; i++) {
-			if (tracks.contains(tracklist[i])) {
-				System.out.println("Track " + tracklist[i].getTitle() + " is already!");
+			int count = 0;
+			for (int j = 0; j < tracks.size(); j++) {
+				if (tracks.get(j).equals(tracklist[i])) count += 1;
 			}
+			if (count != 0)
+				System.out.println("Track: " + tracklist[i].getTitle() + " is already in CD!");
 			else {
 				tracks.add(tracklist[i]);
 			}
@@ -59,7 +66,7 @@ public class CompactDisc extends Disc implements Playable {
 		if (tracks.contains(track)) {
 			tracks.remove(track);
 		}
-		else System.out.println("Track is not in list!");
+		else System.out.println("Track: " + this.getTitle() + " is not in list!");
 	}
 	
 	public int getLength() {
@@ -92,7 +99,7 @@ public class CompactDisc extends Disc implements Playable {
 	}
 	
 	public void play() {
-		if (this.getLength() <= 0) System.out.println("CD cannot be played!");
+		if (this.getLength() <= 0) System.out.println("CD: " + this.getTitle() + " cannot be played!");
 		else {
 			System.out.println("Playing CD: " + this.getTitle());
 			System.out.println("CD length: " + this.getLength());

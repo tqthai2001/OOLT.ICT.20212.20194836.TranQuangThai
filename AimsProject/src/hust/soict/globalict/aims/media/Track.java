@@ -31,7 +31,7 @@ public class Track implements Playable, Comparable<Track> {
 	}
 	
 	public void play() {
-		if (this.getLength() <= 0) System.out.println("Track cannot be played!");
+		if (this.getLength() <= 0) System.out.println("Track: " + this.getTitle() + " cannot be played!");
 		else {
 			System.out.println("Playing Track: " + this.getTitle());
 			System.out.println("Track length: " + this.getLength());
@@ -39,9 +39,11 @@ public class Track implements Playable, Comparable<Track> {
 	}
 	
 	@Override
-	public int compareTo(Track track) {
+	public int compareTo(Track o) {
 		// TODO Auto-generated method stub
-		return 0;
+		if (this.title.compareTo(o.title) == 0)
+			return this.length - o.length;
+		return this.title.compareTo(o.title);
 	}
 
 }
