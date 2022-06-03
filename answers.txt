@@ -1,11 +1,4 @@
-1. If the passing object is not an instance of Media, what happens?
-- It's error. Because Java does not allow to compare two objects which are different data types.
-
-2. Which method(s) do you need to implement from this interface?
-- public int compareTo (Object o)
-
-3. Iterate through the list and print out the information of the media by using toString() method.
-Observe what happens and explain it in detail.
-
-- Method toString() has been overriden in Book, DVD, CD Class. Therefore, when print out it return string that I defined
-in each class.
+1. Compare Swing and AWT
+- Top-level: JFrame - Frame
+- Class name: JTextField - TextField
+- Event-handling: Same

@@ -131,4 +131,12 @@ public class Store {
 		}
 		if (count == 0) System.out.println("No match is found.");
 	}
+	
+	public int getQuantityItemsInStore() {
+		return itemsInStore.size();
+	}
+	
+	public ArrayList<Media> getItemsInStore() {
+		return itemsInStore;
+	}
 }
