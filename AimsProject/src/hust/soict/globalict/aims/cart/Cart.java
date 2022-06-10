@@ -25,21 +25,21 @@ public class Cart {
 	}
 	
 	public void addMedia(Media media) {
-		int count = 0;
-		for (int i = 0; i < itemsOrdered.size(); i++) {
-			if (itemsOrdered.get(i).equals(media)) {
-				System.out.println("The media: " + media.getTitle() + " is already in the cart!");
-				count += 1;
-			}
+//		int count = 0;
+//		for (int i = 0; i < itemsOrdered.size(); i++) {
+//			if (itemsOrdered.get(i).equals(media)) {
+//				System.out.println("The media: " + media.getTitle() + " is already in the cart!");
+//				count += 1;
+//			}
+//		}
+		if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
+			itemsOrdered.add(media);
+			System.out.println("The media: " + media.getTitle() + " has been added.");
+			JOptionPane.showMessageDialog(null, "The media: " + media.getTitle() + " has been added.");
 		}
-		if (count == 0) {
-			if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
-				itemsOrdered.add(media);
-				System.out.println("The media: " + media.getTitle() + " has been added.");
-			}
-			else {
-				System.out.println("The cart is almost full.");
-			}
+		else {
+			System.out.println("The cart is almost full.");
+			JOptionPane.showMessageDialog(null, "The cart is almost full.");
 		}
 	}
 	

@@ -238,6 +238,7 @@ public class StoreScreen extends JFrame {
 		// TODO Auto-generated method stub
 		Store anItem = new Store();
 		Cart anOrder = new Cart();
+		
 //		---------------------------------------- INIT DATA ----------------------------------------
 //		############################## DVD ##############################
 		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
@@ -290,8 +291,9 @@ public class StoreScreen extends JFrame {
 		cd3.removeTrack(track1); // remove track not in list
 		
 //		Add item to store
-		anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book3, cd1, cd3);
+		anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2, book3, cd1, cd2, cd3);
 //		---------------------------------------- INIT DATA ----------------------------------------
+		
 		new StoreScreen(anItem, anOrder);
 	}
 

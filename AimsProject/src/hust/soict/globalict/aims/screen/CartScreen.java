@@ -46,11 +46,4 @@ public class CartScreen extends JFrame {
 		});
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Store anItem = new Store();
-		Cart anOrder = new Cart();
-		new CartScreen(anItem, anOrder);
-	}
-
 }
