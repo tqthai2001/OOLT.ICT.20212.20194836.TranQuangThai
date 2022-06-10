@@ -72,7 +72,7 @@ public class AddCompactDiscToStoreScreen extends AddItemToStoreScreen {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
-				seeCurrentCart(AddCompactDiscToStoreScreen.this.cart);
+				new CartScreen(AddCompactDiscToStoreScreen.this.cart);
 			}
 		});
 		

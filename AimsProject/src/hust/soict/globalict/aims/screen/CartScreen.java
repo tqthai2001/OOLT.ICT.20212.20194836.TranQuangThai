@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 
 import hust.soict.globalict.aims.cart.Cart;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
+import hust.soict.globalict.aims.store.Store;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 
 public class CartScreen extends JFrame {
 	
+	private Store store;
 	private Cart cart;
 
 	public CartScreen(Cart cart) {
@@ -22,6 +24,7 @@ public class CartScreen extends JFrame {
 		JFXPanel fxPanel = new JFXPanel();
 		this.add(fxPanel);
 		this.setTitle("Cart");
+		this.setSize(1024, 768);
 		this.setVisible(true);
 		
 		Platform.runLater(new Runnable() {	
@@ -30,7 +33,7 @@ public class CartScreen extends JFrame {
 				// TODO Auto-generated method stub
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("Cart.fxml"));
-					CartScreenController controller = new CartScreenController(cart);
+					CartScreenController controller = new CartScreenController(store, cart);
 					loader.setController(controller);
 					Parent root = loader.load();
 					fxPanel.setScene(new Scene(root));
@@ -50,7 +53,7 @@ public class CartScreen extends JFrame {
 				"Animation", "Roger Allers", 87, 19.95f);
 		
 		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars",
-				"Science Fiction", "George Lucas", 87, 24.95f);
+				"Science Fiction", "George Lucas", 87, 14.95f);
 		
 		anOrder.addMedia(dvd2, dvd1);
 		new CartScreen(anOrder);

@@ -11,8 +11,10 @@ import hust.soict.globalict.aims.media.CompactDisc;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
+import hust.soict.globalict.aims.store.Store;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,12 +27,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CartScreenController {
 	
+	private Store store;
 	private Cart cart;
 
 	@FXML
     private Button btnPlay;
     @FXML
     private Button btnRemove;
+    @FXML
+    private Button btnGetLuckyItem;
 	@FXML
     private TableColumn<Media, String> colMediaCategory;
     @FXML
@@ -44,14 +49,15 @@ public class CartScreenController {
     @FXML
     private Label lbTotal;
     @FXML
-    private RadioButton rbtnByID;
+    private RadioButton radioBtnFilterID;
     @FXML
-    private RadioButton rbtnByTitle;
+    private RadioButton radioBtnFilterTitle;
     @FXML
-    private TextField tfTextFilter;
+    private TextField tfFilter;
 	
-    public CartScreenController(Cart cart) {
+    public CartScreenController(Store store, Cart cart) {
 		super();
+		this.store = store;
 		this.cart = cart;
 	}
     
@@ -74,6 +80,16 @@ public class CartScreenController {
     			}
     		}
 		});
+    	
+    	tfFilter.textProperty().addListener(new ChangeListener<String>() {
+    		@Override
+    		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+    			// TODO Auto-generated method stub
+    			showFilteredMedia(newValue);
+    		}
+		});
+    	
+    	lbTotal.setText(cart.totalCost() + " $");
     }
     
     void updateButtonBar(Media media) {
@@ -97,6 +113,64 @@ public class CartScreenController {
     	Media media = tblMedia.getSelectionModel().getSelectedItem();
     	cart.removeMedia(media);
     	lbTotal.setText(cart.totalCost() + " $");
+    }
+    
+    @FXML
+    void btnGetLuckyItemPressed(ActionEvent event) {
+    	cart.updateLuckyItemInCart();
+    }
+    
+    @FXML
+    void btnPlaceOrderPressed(ActionEvent event) {
+    	cart.emptyCart();
+    	lbTotal.setText(cart.totalCost() + " $");
+    }
+    
+    @FXML
+    void menuItemViewStorePressed(ActionEvent event) {
+    	new StoreScreen(store, cart);
+    }
+    
+    @FXML
+    void radioBtnSortCostPressed(ActionEvent event) {
+    	cart.sortByDecreasingCostAndAlphabet();
+    }
+
+    @FXML
+    void radioBtnSortTitlePressed(ActionEvent event) {
+    	cart.sortByAlphabetAndDecreasingCost();
+    }
+    
+    void showFilteredMedia(String newValue) {
+//    	Wrap the ObservableList in a FilteredList (initially display all data)
+    	FilteredList<Media> filteredList = new FilteredList<>(cart.getItemsOrdered(), media -> true);
+//    	Set the filter Predicate whenever the filter changes
+    	if (radioBtnFilterTitle.isSelected()) {
+    		filteredList.setPredicate(media -> {
+    			// If filter text is empty, display all persons
+    			if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+    			if (media.getTitle().toLowerCase().indexOf(newValue.toLowerCase()) != -1) {
+    				return true; // Filter matches
+    			}
+    			return false;
+    		});
+    	}
+    	else if (radioBtnFilterID.isSelected()) {
+    		filteredList.setPredicate(media -> {
+    			// If filter text is empty, display all persons
+    			if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+    			if (media.getId() == Integer.parseInt(newValue)) {
+    				return true;
+    			}
+    			return false;
+    		});
+		}
+//    	Add filtered data to the table
+    	tblMedia.setItems(filteredList);
     }
     
     public class Dialog extends JDialog {

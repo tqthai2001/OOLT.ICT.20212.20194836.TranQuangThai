@@ -115,7 +115,7 @@ public class AddItemToStoreScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
-				seeCurrentCart(cart);
+				new CartScreen(cart);
 			}
 		});
 		
@@ -134,90 +134,6 @@ public class AddItemToStoreScreen extends JFrame {
 	JPanel createCenter() {
 		JPanel center = new JPanel();
 		return center;
-	}
-	
-	public static void cartMenu() {
-		System.out.println("Options:");
-		System.out.println("--------------------------------");
-		System.out.println("1. Filter Medias in cart");
-		System.out.println("2. Sort Medias in cart");
-		System.out.println("3. Play a Media in cart");
-		System.out.println("4. Remove Media from cart");
-		System.out.println("5. Get a lucky item from cart");
-		System.out.println("6. Place order");
-		System.out.println("0. Back to Store Screen");
-		System.out.println("--------------------------------");
-		System.out.println("Please choose a number: 0-1-2-3-4-5-6");
-	}
-	
-	public void seeCurrentCart(Cart anOrder) {
-		cartMenu();
-		Scanner scanner = new Scanner(System.in);
-		int cartChoice;
-		anOrder.printCartGeneral();
-		cartMenu();
-		System.out.print("Type here: ");
-		cartChoice = scanner.nextInt();
-		switch (cartChoice) {
-		case 0: new StoreScreen(store, anOrder); break;
-		case 1:
-		{
-			System.out.println("Filter by ID (1) or by title (2).");
-			System.out.print("Type 1 or 2: ");
-			int choice = scanner.nextInt();
-			if (choice == 1) {
-				System.out.print("Type ID here: ");
-				int id = scanner.nextInt();
-				anOrder.searchByID(id);
-			}
-			else if (choice == 2) {
-				System.out.print("Type title here: ");
-				scanner.nextLine();
-				String title = scanner.nextLine();
-				anOrder.searchByTitle(title);
-			}
-			else System.out.println("Unexpected value: " + choice);
-			break;
-		}
-		case 2:
-		{
-			System.out.println("Sort by TitleCost (1) or by CostTitle (2) or by TitleCategory (3).");
-			System.out.print("Type 1 or 2 or 3: ");
-			int choice = scanner.nextInt();
-			if (choice == 1) anOrder.sortByAlphabetAndDecreasingCost();
-			else if (choice == 2) anOrder.sortByDecreasingCostAndAlphabet();
-			else if (choice == 3) anOrder.sortByAlphabetTitleCategory();
-			else System.out.println("Unexpected value: " + choice);
-			break;
-		}
-		case 3:
-		{
-			System.out.print("Enter the ID of the Media: ");
-			int tmpID = scanner.nextInt();
-			anOrder.playByID(tmpID);
-			break;
-		}
-		case 4:
-		{
-			System.out.print("Enter the ID of the Media: ");
-			int tmpID = scanner.nextInt();
-			anOrder.removeByID(tmpID);
-			break;
-		}
-		case 5:
-		{
-			anOrder.updateLuckyItemInCart();
-			break;
-		}
-		case 6:
-		{
-			anOrder.emptyCart();
-			System.out.println("An order is created.");
-			break;
-		}
-		default:
-			System.out.println("Unexpected value: " + cartChoice);
-		}
 	}
 
 }
