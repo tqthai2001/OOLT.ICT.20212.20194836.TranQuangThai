@@ -17,9 +17,11 @@ public class CartScreen extends JFrame {
 	private Store store;
 	private Cart cart;
 
-	public CartScreen(Cart cart) {
+	public CartScreen(Store store, Cart cart) {
 		super();
+		this.store = store;
 		this.cart = cart;
+		CartScreen cartScreen = this;
 		
 		JFXPanel fxPanel = new JFXPanel();
 		this.add(fxPanel);
@@ -33,7 +35,7 @@ public class CartScreen extends JFrame {
 				// TODO Auto-generated method stub
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("Cart.fxml"));
-					CartScreenController controller = new CartScreenController(store, cart);
+					CartScreenController controller = new CartScreenController(store, cart, cartScreen);
 					loader.setController(controller);
 					Parent root = loader.load();
 					fxPanel.setScene(new Scene(root));
@@ -46,17 +48,9 @@ public class CartScreen extends JFrame {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Store anItem = new Store();
 		Cart anOrder = new Cart();
-//		---------------------------------------- INIT DATA ----------------------------------------
-//		############################## DVD ##############################
-		DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King",
-				"Animation", "Roger Allers", 87, 19.95f);
-		
-		DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars",
-				"Science Fiction", "George Lucas", 87, 14.95f);
-		
-		anOrder.addMedia(dvd2, dvd1);
-		new CartScreen(anOrder);
+		new CartScreen(anItem, anOrder);
 	}
 
 }

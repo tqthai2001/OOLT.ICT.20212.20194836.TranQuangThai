@@ -2,9 +2,9 @@ package hust.soict.globalict.aims.screen;
 
 import java.awt.Container;
 import java.awt.GridLayout;
-
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import hust.soict.globalict.aims.cart.Cart;
 import hust.soict.globalict.aims.media.CompactDisc;
@@ -29,6 +29,7 @@ public class CartScreenController {
 	
 	private Store store;
 	private Cart cart;
+	private CartScreen cartScreen;
 
 	@FXML
     private Button btnPlay;
@@ -36,6 +37,8 @@ public class CartScreenController {
     private Button btnRemove;
     @FXML
     private Button btnGetLuckyItem;
+    @FXML
+    private TableColumn<Media, Integer> colMediaID;
 	@FXML
     private TableColumn<Media, String> colMediaCategory;
     @FXML
@@ -55,14 +58,16 @@ public class CartScreenController {
     @FXML
     private TextField tfFilter;
 	
-    public CartScreenController(Store store, Cart cart) {
+    public CartScreenController(Store store, Cart cart, CartScreen cartScreen) {
 		super();
 		this.store = store;
 		this.cart = cart;
+		this.cartScreen = cartScreen;
 	}
     
     @FXML
     private void initialize() {
+    	colMediaID.setCellValueFactory(new PropertyValueFactory<Media, Integer>("id"));
     	colMediaTitle.setCellValueFactory(new PropertyValueFactory<Media, String>("title"));
     	colMediaCategory.setCellValueFactory(new PropertyValueFactory<Media, String>("category"));
     	colMediaCost.setCellValueFactory(new PropertyValueFactory<Media, Float>("cost"));
@@ -117,18 +122,39 @@ public class CartScreenController {
     
     @FXML
     void btnGetLuckyItemPressed(ActionEvent event) {
-    	cart.updateLuckyItemInCart();
+		cart.updateLuckyItemInCart();
+		lbTotal.setText(cart.totalCost() + " $");
     }
     
     @FXML
     void btnPlaceOrderPressed(ActionEvent event) {
+    	JOptionPane.showMessageDialog(null, "Thank you!");
     	cart.emptyCart();
     	lbTotal.setText(cart.totalCost() + " $");
     }
     
     @FXML
     void menuItemViewStorePressed(ActionEvent event) {
+    	cartScreen.setVisible(false);
     	new StoreScreen(store, cart);
+    }
+    
+    @FXML
+    void menuItemAddBookPressed(ActionEvent event) {
+    	cartScreen.setVisible(false);
+    	new AddBookToStoreScreen(store, cart);
+    }
+
+    @FXML
+    void menuItemAddCDPressed(ActionEvent event) {
+    	cartScreen.setVisible(false);
+    	new AddCompactDiscToStoreScreen(store, cart);
+    }
+
+    @FXML
+    void menuItemAddDVDPressed(ActionEvent event) {
+    	cartScreen.setVisible(false);
+    	new AddDigitalVideoDiscToStoreScreen(store, cart);
     }
     
     @FXML

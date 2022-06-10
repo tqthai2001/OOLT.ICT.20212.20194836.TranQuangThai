@@ -2,6 +2,7 @@ package hust.soict.globalict.aims.cart;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.swing.JOptionPane;
 
 import hust.soict.globalict.aims.media.Book;
 import hust.soict.globalict.aims.media.CompactDisc;
@@ -11,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Cart {
+	private int countLuckyItem = 0;
 	public static final int MAX_NUMBERS_ORDERED = 20;
 	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 	
@@ -82,33 +84,39 @@ public class Cart {
 	
 	public Media getALuckyItem() {
 		int luckyItem = (int)(Math.random() * itemsOrdered.size());
+		if (luckyItem == itemsOrdered.size()-1) luckyItem -= 1;
+		countLuckyItem += 1;
 		return itemsOrdered.get(luckyItem);
 	}
 	
 	public void updateLuckyItemInCart() {
-		if (itemsOrdered.size() > 0) {
+		if (itemsOrdered.size() > 0 && countLuckyItem < 1) {
 			Media luckyItem = getALuckyItem();
 			if (luckyItem instanceof DigitalVideoDisc) {
 				DigitalVideoDisc copyLuckyItem = ((DigitalVideoDisc) luckyItem).copyData();
 				itemsOrdered.remove(luckyItem);
 				itemsOrdered.add(copyLuckyItem);
 				System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+				JOptionPane.showMessageDialog(null, "Lucky Item: " + copyLuckyItem.getTitle());
 			}
 			else if (luckyItem instanceof Book) {
 				Book copyLuckyItem = ((Book) luckyItem).copyData();
 				itemsOrdered.remove(luckyItem);
 				itemsOrdered.add(copyLuckyItem);
 				System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+				JOptionPane.showMessageDialog(null, "Lucky Item: " + copyLuckyItem.getTitle());
 			}
 			else if (luckyItem instanceof CompactDisc) {
 				CompactDisc copyLuckyItem = ((CompactDisc) luckyItem).copyData();
 				itemsOrdered.remove(luckyItem);
 				itemsOrdered.add(copyLuckyItem);
 				System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
+				JOptionPane.showMessageDialog(null, "Lucky Item: " + copyLuckyItem.getTitle());
 			}
 		}
 		else {
-			System.out.println("Empty cart! Can not get lucky item.");
+			System.out.println("Can not get lucky item.");
+			JOptionPane.showMessageDialog(null, "Can not get lucky item.");
 		}
 	}
 
@@ -143,6 +151,7 @@ public class Cart {
 	}
 	
 	public void emptyCart() {
+		countLuckyItem = 0;
 		itemsOrdered.clear();
 	}
 	

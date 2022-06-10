@@ -60,7 +60,7 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
-				new CartScreen(AddBookToStoreScreen.this.cart);
+				new CartScreen(store, AddBookToStoreScreen.this.cart);
 			}
 		});
 		

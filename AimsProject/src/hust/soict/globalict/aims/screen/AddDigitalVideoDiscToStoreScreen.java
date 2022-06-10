@@ -72,7 +72,7 @@ public class AddDigitalVideoDiscToStoreScreen extends AddItemToStoreScreen {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
-				new CartScreen(AddDigitalVideoDiscToStoreScreen.this.cart);
+				new CartScreen(store, AddDigitalVideoDiscToStoreScreen.this.cart);
 			}
 		});
 		

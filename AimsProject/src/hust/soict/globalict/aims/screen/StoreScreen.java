@@ -85,7 +85,7 @@ public class StoreScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
-				new CartScreen(cart);
+				new CartScreen(store, cart);
 			}
 		});
 		
@@ -112,7 +112,7 @@ public class StoreScreen extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				setVisible(false);
-				new CartScreen(StoreScreen.this.cart);
+				new CartScreen(store, StoreScreen.this.cart);
 			}
 		});
 		
@@ -171,6 +171,17 @@ public class StoreScreen extends JFrame {
 					}
 				});
 			}
+			
+			JButton btRemove = new JButton("Remove");
+			container.add(btRemove);
+			btRemove.addActionListener(new ActionListener() {	
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					store.removeMedia(media);
+					setVisible(false);
+				}
+			});
 			
 			this.add(Box.createVerticalGlue());
 			this.add(title);
