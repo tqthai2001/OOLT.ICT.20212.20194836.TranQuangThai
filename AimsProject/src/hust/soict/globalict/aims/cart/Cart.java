@@ -2,8 +2,10 @@ package hust.soict.globalict.aims.cart;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import javax.naming.LimitExceededException;
 import javax.swing.JOptionPane;
 
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.Book;
 import hust.soict.globalict.aims.media.CompactDisc;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
@@ -24,7 +26,7 @@ public class Cart {
 		return itemsOrdered.size();
 	}
 	
-	public void addMedia(Media media) {
+	public void addMedia(Media media) throws LimitExceededException {
 //		int count = 0;
 //		for (int i = 0; i < itemsOrdered.size(); i++) {
 //			if (itemsOrdered.get(i).equals(media)) {
@@ -38,8 +40,7 @@ public class Cart {
 			JOptionPane.showMessageDialog(null, "The media: " + media.getTitle() + " has been added.");
 		}
 		else {
-			System.out.println("The cart is almost full.");
-			JOptionPane.showMessageDialog(null, "The cart is almost full.");
+			throw new LimitExceededException("ERROR: The number of media has reached its limit.");
 		}
 	}
 	
@@ -164,11 +165,21 @@ public class Cart {
 				}
 				else if (itemsOrdered.get(i) instanceof DigitalVideoDisc) {
 					DigitalVideoDisc tmpDVD = (DigitalVideoDisc) itemsOrdered.get(i);
-					tmpDVD.play();
+					try {
+						tmpDVD.play();
+					} catch (PlayerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				else if (itemsOrdered.get(i) instanceof CompactDisc) {
 					CompactDisc tmpCD = (CompactDisc) itemsOrdered.get(i);
-					tmpCD.play();
+					try {
+						tmpCD.play();
+					} catch (PlayerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				count += 1;
 			}

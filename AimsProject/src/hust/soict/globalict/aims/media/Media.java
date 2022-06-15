@@ -73,8 +73,18 @@ public abstract class Media implements Comparable<Media> {
 	
 	public boolean equals(Object o) {
 		if (o instanceof Media) {
-			Media media = (Media) o;
-			if (media.id == this.id) return true;
+			try {
+				Media media = (Media) o;
+				if (media.cost == this.cost && media.title == this.title) return true;
+			}
+			catch (NullPointerException e) {
+				// TODO: handle exception
+				return false;
+			}
+			catch (ClassCastException e) {
+				// TODO: handle exception
+				return false;
+			}
 		}
 		return false;
 	}

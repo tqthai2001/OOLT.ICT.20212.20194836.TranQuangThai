@@ -3,6 +3,7 @@ package hust.soict.globalict.aims.store;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.Book;
 import hust.soict.globalict.aims.media.CompactDisc;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
@@ -120,11 +121,21 @@ public class Store {
 				}
 				else if (itemsInStore.get(i) instanceof DigitalVideoDisc) {
 					DigitalVideoDisc tmpDVD = (DigitalVideoDisc) itemsInStore.get(i);
-					tmpDVD.play();
+					try {
+						tmpDVD.play();
+					} catch (PlayerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				else if (itemsInStore.get(i) instanceof CompactDisc) {
 					CompactDisc tmpCD = (CompactDisc) itemsInStore.get(i);
-					tmpCD.play();
+					try {
+						tmpCD.play();
+					} catch (PlayerException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				count += 1;
 			}

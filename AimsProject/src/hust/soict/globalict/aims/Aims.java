@@ -1,6 +1,7 @@
 package hust.soict.globalict.aims;
 
 import java.util.Scanner;
+import javax.naming.LimitExceededException;
 
 import hust.soict.globalict.aims.cart.Cart;
 import hust.soict.globalict.aims.media.Book;
@@ -154,7 +155,12 @@ public class Aims {
 							System.out.print("Type Y/N: ");
 							char c = scanner.next().charAt(0);
 							if (c == 'Y' || c == 'y') {
-								anOrder.addMedia(tmpMedia);
+								try {
+									anOrder.addMedia(tmpMedia);
+								} catch (LimitExceededException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 							}
 							else System.out.println("Thank you.");
 						}
@@ -168,7 +174,12 @@ public class Aims {
 						Media tmpMedia = anItem.searchByID(tmpID);
 						if (tmpMedia == null) System.out.println("Invalid ID!");
 						else {
-							anOrder.addMedia(tmpMedia);
+							try {
+								anOrder.addMedia(tmpMedia);
+							} catch (LimitExceededException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							System.out.println("The number of Media in the cart: " + anOrder.getQtyOrdered());
 						}
 						break;
