@@ -1,4 +1,4 @@
-1. Compare Swing and AWT
-- Top-level: JFrame - Frame
-- Class name: JTextField - TextField
-- Event-handling: Same
+The Aims class must be updated to handle any exceptions generated when the play() methods are 
+called. What happens when you don’t update for them to catch?
+
+- If we don't update them for catch, the program will be stopped working when catch a problem.

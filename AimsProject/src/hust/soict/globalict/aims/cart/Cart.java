@@ -17,7 +17,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Cart {
-	private int countLuckyItem = 0;
 	public static final int MAX_NUMBERS_ORDERED = 20;
 	private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
 	
@@ -94,7 +93,6 @@ public class Cart {
 			boolean fixedProbability = new Random().nextBoolean() ? true : false;			
 			if (fixedProbability) {
 				int luckyItem = (int)(Math.random() * itemsCanGetFree.size());
-				countLuckyItem += 1;
 				return itemsCanGetFree.get(luckyItem);
 			}
 			else {
@@ -168,7 +166,6 @@ public class Cart {
 	}
 	
 	public void emptyCart() {
-		countLuckyItem = 0;
 		itemsOrdered.clear();
 	}
 	
