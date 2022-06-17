@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.naming.LimitExceededException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -86,7 +87,12 @@ public class AddDigitalVideoDiscToStoreScreen extends AddItemToStoreScreen {
 				float cost = Float.parseFloat(tfCost.getText());
 				int length = Integer.parseInt(tfLength.getText());
 				DigitalVideoDisc tmpDigitalVideoDisc = new DigitalVideoDisc(tfTitle.getText(), tfCategory.getText(), tfDirector.getText(), length, cost);
-				store.addMedia(tmpDigitalVideoDisc);
+				try {
+					store.addMedia(tmpDigitalVideoDisc);
+				} catch (LimitExceededException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				setVisible(false);
 				new StoreScreen(store, AddDigitalVideoDiscToStoreScreen.this.cart);
 			}

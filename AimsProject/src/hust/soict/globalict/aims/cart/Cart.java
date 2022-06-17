@@ -2,10 +2,13 @@ package hust.soict.globalict.aims.cart;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
+
 import javax.naming.LimitExceededException;
 import javax.swing.JOptionPane;
 
 import hust.soict.globalict.aims.exception.PlayerException;
+import hust.soict.globalict.aims.exception.ThresholdException;
 import hust.soict.globalict.aims.media.Book;
 import hust.soict.globalict.aims.media.CompactDisc;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
@@ -27,13 +30,6 @@ public class Cart {
 	}
 	
 	public void addMedia(Media media) throws LimitExceededException {
-//		int count = 0;
-//		for (int i = 0; i < itemsOrdered.size(); i++) {
-//			if (itemsOrdered.get(i).equals(media)) {
-//				System.out.println("The media: " + media.getTitle() + " is already in the cart!");
-//				count += 1;
-//			}
-//		}
 		if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
 			itemsOrdered.add(media);
 			System.out.println("The media: " + media.getTitle() + " has been added.");
@@ -44,26 +40,15 @@ public class Cart {
 		}
 	}
 	
-	public void addMedia(Media ... mediaList) {
-		for (int i = 0; i < mediaList.length; i++) {
-			int count = 0;
-			for (int j = 0; j < itemsOrdered.size(); j++) {
-				if (itemsOrdered.get(j).equals(mediaList[i])) {
-					System.out.println("The media: " + mediaList[i].getTitle() + " is already in the cart!");
-					count += 1;
-				}
+	public void addMedia(Media ... mediaList) throws LimitExceededException {
+		if ((mediaList.length + itemsOrdered.size()) < MAX_NUMBERS_ORDERED) {
+			for (int k = 0; k < mediaList.length; k++) {
+				itemsOrdered.add(mediaList[k]);
+				System.out.println("The media: " + mediaList[k].getTitle() + " has been added.");
 			}
-			if (count == 0) {
-				if ((mediaList.length + itemsOrdered.size()) < MAX_NUMBERS_ORDERED) {
-					for (int k = 0; k < mediaList.length; k++) {
-						itemsOrdered.add(mediaList[k]);
-						System.out.println("The media: " + mediaList[k].getTitle() + " has been added.");
-					}
-				}
-				else {
-					System.out.println("Can not add " + mediaList.length + " media(s).");
-				}
-			}
+		}
+		else {
+			throw new LimitExceededException("ERROR: The number of media has reached its limit.");
 		}
 	}
 	
@@ -83,16 +68,51 @@ public class Cart {
 		}
 	}
 	
-	public Media getALuckyItem() {
-		int luckyItem = (int)(Math.random() * itemsOrdered.size());
-		if (luckyItem == itemsOrdered.size()-1) luckyItem -= 1;
-		countLuckyItem += 1;
-		return itemsOrdered.get(luckyItem);
+	public Media getALuckyItem() throws ThresholdException {
+		if (itemsOrdered.size() < 5 || this.totalCost() < 200) {
+			JOptionPane.showMessageDialog(null, "You need buy more to get lucky item!");
+			throw new ThresholdException("You need buy more to get lucky item!");
+		}
+		else {
+			float limit = 0;
+			ArrayList<Media> itemsCanGetFree = new ArrayList<Media>();
+			if (this.totalCost() < 300) {
+				limit = 50;
+			}
+			else if (this.totalCost() >= 300 && this.totalCost() < 500) {
+				limit = 100;
+			}
+			else {
+				limit = 200;
+			}
+			for (int i = 0; i < itemsOrdered.size(); i++) {
+				if (itemsOrdered.get(i).getCost() <= limit) {
+					itemsCanGetFree.add(itemsOrdered.get(i));
+				}
+			}
+//			Probability = 50%
+			boolean fixedProbability = new Random().nextBoolean() ? true : false;			
+			if (fixedProbability) {
+				int luckyItem = (int)(Math.random() * itemsCanGetFree.size());
+				countLuckyItem += 1;
+				return itemsCanGetFree.get(luckyItem);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Wish you luck next time!");
+				throw new ThresholdException("Wish you luck next time!");
+			}
+		}
 	}
 	
 	public void updateLuckyItemInCart() {
-		if (itemsOrdered.size() > 0 && countLuckyItem < 1) {
-			Media luckyItem = getALuckyItem();
+		Media luckyItem = null;
+		try {
+			luckyItem = getALuckyItem();
+		} catch (ThresholdException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (luckyItem != null) {
 			if (luckyItem instanceof DigitalVideoDisc) {
 				DigitalVideoDisc copyLuckyItem = ((DigitalVideoDisc) luckyItem).copyData();
 				itemsOrdered.remove(luckyItem);
@@ -114,10 +134,6 @@ public class Cart {
 				System.out.println("Lucky Item: ID: " + copyLuckyItem.getId() + " - " + copyLuckyItem.getTitle());
 				JOptionPane.showMessageDialog(null, "Lucky Item: " + copyLuckyItem.getTitle());
 			}
-		}
-		else {
-			System.out.println("Can not get lucky item.");
-			JOptionPane.showMessageDialog(null, "Can not get lucky item.");
 		}
 	}
 

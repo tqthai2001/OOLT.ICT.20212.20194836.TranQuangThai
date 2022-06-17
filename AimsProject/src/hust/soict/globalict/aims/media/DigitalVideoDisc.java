@@ -2,6 +2,8 @@ package hust.soict.globalict.aims.media;
 
 import java.time.LocalDate;
 
+import javax.swing.JOptionPane;
+
 import hust.soict.globalict.aims.exception.PlayerException;
 
 public class DigitalVideoDisc extends Disc implements Playable {
@@ -52,6 +54,7 @@ public class DigitalVideoDisc extends Disc implements Playable {
 	
 	public void play() throws PlayerException {
 		if (this.getLength() > 0) {
+			JOptionPane.showMessageDialog(null, "Playing DVD: " + this.getTitle() + "\n" + "DVD length: " + this.getLength());
 			System.out.println("Playing DVD: " + this.getTitle());
 			System.out.println("DVD length: " + this.getLength());
 		}

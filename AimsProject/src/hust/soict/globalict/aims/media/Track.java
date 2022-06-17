@@ -1,5 +1,7 @@
 package hust.soict.globalict.aims.media;
 
+import javax.swing.JOptionPane;
+
 import hust.soict.globalict.aims.exception.PlayerException;
 
 public class Track implements Playable, Comparable<Track> {
@@ -34,11 +36,12 @@ public class Track implements Playable, Comparable<Track> {
 	
 	public void play() throws PlayerException {
 		if (this.getLength() > 0) {
+			JOptionPane.showMessageDialog(null, "Playing Track: " + this.getTitle() + "\n" + "Track length: " + this.getLength());
 			System.out.println("Playing Track: " + this.getTitle());
 			System.out.println("Track length: " + this.getLength());
 		}
 		else {
-			throw new PlayerException("ERROR: DVD length is non-positive");
+			throw new PlayerException("ERROR: Track length is non-positive");
 		}
 	}
 	

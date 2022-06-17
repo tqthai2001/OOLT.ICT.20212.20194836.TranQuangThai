@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.naming.LimitExceededException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -85,7 +86,12 @@ public class AddCompactDiscToStoreScreen extends AddItemToStoreScreen {
 				// TODO Auto-generated method stub
 				float cost = Float.parseFloat(tfCost.getText());
 				CompactDisc tmpCompactDisc = new CompactDisc(tfTitle.getText(), tfCategory.getText(), tfDirector.getText(), tfArtist.getText(), cost);
-				store.addMedia(tmpCompactDisc);
+				try {
+					store.addMedia(tmpCompactDisc);
+				} catch (LimitExceededException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				setVisible(false);
 				new StoreScreen(store, AddCompactDiscToStoreScreen.this.cart);
 			}

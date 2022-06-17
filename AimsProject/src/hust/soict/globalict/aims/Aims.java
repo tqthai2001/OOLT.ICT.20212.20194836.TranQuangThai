@@ -116,7 +116,12 @@ public class Aims {
 		cd3.removeTrack(track1); // remove track not in list
 		
 //		Add item to store
-		anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2, book3, cd1, cd2, cd3);
+		try {
+			anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2, book3, cd1, cd2, cd3);
+		} catch (LimitExceededException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 //		---------------------------------------- INIT DATA ----------------------------------------
 		
 		do {
@@ -294,7 +299,12 @@ public class Aims {
 						int length = scanner.nextInt();
 						System.out.println("Cost: ");
 						float cost = scanner.nextFloat();
-						anItem.addMedia(new DigitalVideoDisc(title, category, director, length, cost));
+						try {
+							anItem.addMedia(new DigitalVideoDisc(title, category, director, length, cost));
+						} catch (LimitExceededException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					else if (select == 2) {
 						System.out.println("Title: ");
@@ -310,7 +320,12 @@ public class Aims {
 						float cost = scanner.nextFloat();
 						Book tmpBook = new Book(title, category, content, cost);
 						tmpBook.addAuthor(author);
-						anItem.addMedia(tmpBook);
+						try {
+							anItem.addMedia(tmpBook);
+						} catch (LimitExceededException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					else if (select == 3) {
 						System.out.println("Title: ");
@@ -335,7 +350,12 @@ public class Aims {
 							int trackLength = scanner.nextInt();
 							tmpCompactDisc.addTrack(new Track(trackTitle, trackLength));
 						}
-						anItem.addMedia(tmpCompactDisc);
+						try {
+							anItem.addMedia(tmpCompactDisc);
+						} catch (LimitExceededException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					else System.out.println("Unexpected value: " + choice);
 				}

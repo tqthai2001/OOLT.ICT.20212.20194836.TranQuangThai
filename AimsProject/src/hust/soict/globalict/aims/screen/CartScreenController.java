@@ -1,14 +1,8 @@
 package hust.soict.globalict.aims.screen;
 
-import java.awt.Container;
-import java.awt.GridLayout;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import hust.soict.globalict.aims.cart.Cart;
-import hust.soict.globalict.aims.media.CompactDisc;
-import hust.soict.globalict.aims.media.DigitalVideoDisc;
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 import hust.soict.globalict.aims.store.Store;
@@ -110,7 +104,13 @@ public class CartScreenController {
     @FXML
     void btnPlayPressed(ActionEvent event) {
     	Media media = tblMedia.getSelectionModel().getSelectedItem();
-    	new Dialog(media);
+    	try {
+			((Playable) media).play();
+		} catch (PlayerException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -198,32 +198,5 @@ public class CartScreenController {
 //    	Add filtered data to the table
     	tblMedia.setItems(filteredList);
     }
-    
-    public class Dialog extends JDialog {
-		private Media media;
-		public Dialog(Media media) {
-			this.media = media;
-			Container cp = getContentPane();
-			cp.setLayout(new GridLayout(2, 1));
-			if (media instanceof CompactDisc) {
-				if (((CompactDisc) media).getLength() <= 0) cp.add(new JLabel("CD cannot play!"));
-				else {
-					cp.add(new JLabel("Playing CD: " + media.getTitle()));
-					cp.add(new JLabel("CD length: " + ((CompactDisc) media).getLength()));
-				}
-			}
-			else if (media instanceof DigitalVideoDisc) {
-				if (((DigitalVideoDisc) media).getLength() <= 0) cp.add(new JLabel("DVD cannot play!"));
-				else {
-					cp.add(new JLabel("Playing DVD: " + media.getTitle()));
-					cp.add(new JLabel("DVD length: " + ((DigitalVideoDisc) media).getLength()));
-				}
-			}
-			setTitle("Play");
-			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			setSize(250, 100);
-			setVisible(true);
-		}
-	}
 
 }

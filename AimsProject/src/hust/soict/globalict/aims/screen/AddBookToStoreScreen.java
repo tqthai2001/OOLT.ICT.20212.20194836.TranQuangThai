@@ -1,5 +1,6 @@
 package hust.soict.globalict.aims.screen;
 
+import javax.naming.LimitExceededException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -74,7 +75,12 @@ public class AddBookToStoreScreen extends AddItemToStoreScreen {
 				float cost = Float.parseFloat(tfCost.getText());
 				Book tmpBook = new Book(tfTitle.getText(), tfCategory.getText(), tfContent.getText(), cost);
 				tmpBook.addAuthor(tfAuthors.getText());
-				store.addMedia(tmpBook);
+				try {
+					store.addMedia(tmpBook);
+				} catch (LimitExceededException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				setVisible(false);
 				new StoreScreen(store, AddBookToStoreScreen.this.cart);
 			}

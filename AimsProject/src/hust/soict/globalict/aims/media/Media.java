@@ -112,10 +112,13 @@ public abstract class Media implements Comparable<Media> {
 	
 	@Override
 	public int compareTo(Media o) {
-		// TODO Auto-generated method stub
-		if (this.title.compareTo(o.title) == 0)
-			return this.category.compareTo(o.category);
-		return this.title.compareTo(o.title);
+		if (o == null) throw new NullPointerException("ERROR: Null Object");
+		else {
+			// TODO Auto-generated method stub
+			if (this.title.compareTo(o.title) == 0)
+				return this.category.compareTo(o.category);
+			return this.title.compareTo(o.title);
+		}
 	}
 
 }

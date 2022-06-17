@@ -2,9 +2,7 @@ package hust.soict.globalict.aims.media;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 import hust.soict.globalict.aims.exception.PlayerException;
 
@@ -112,7 +110,6 @@ public class CompactDisc extends Disc implements Playable {
 					nextTrack.play();
 				} catch (PlayerException e) {
 					// TODO: handle exception
-					JOptionPane.showMessageDialog(null, e.getMessage());
 					throw e;
 				}
 			}

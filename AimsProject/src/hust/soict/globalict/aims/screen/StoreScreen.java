@@ -5,10 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Scanner;
 import javax.naming.LimitExceededException;
 
 import hust.soict.globalict.aims.cart.Cart;
+import hust.soict.globalict.aims.exception.PlayerException;
 import hust.soict.globalict.aims.media.Book;
 import hust.soict.globalict.aims.media.CompactDisc;
 import hust.soict.globalict.aims.media.DigitalVideoDisc;
@@ -173,7 +173,13 @@ public class StoreScreen extends JFrame {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
-						new Dialog(media);
+						try {
+							((Playable) media).play();
+						} catch (PlayerException e1) {
+							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(null, e1.getMessage());
+							e1.printStackTrace();
+						}
 					}
 				});
 			}
@@ -195,33 +201,6 @@ public class StoreScreen extends JFrame {
 			this.add(Box.createVerticalGlue());
 			this.add(container);
 			this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		}
-	}
-	
-	public class Dialog extends JDialog {
-		private Media media;
-		public Dialog(Media media) {
-			this.media = media;
-			Container cp = getContentPane();
-			cp.setLayout(new GridLayout(2, 1));
-			if (media instanceof CompactDisc) {
-				if (((CompactDisc) media).getLength() <= 0) cp.add(new JLabel("CD cannot play!"));
-				else {
-					cp.add(new JLabel("Playing CD: " + media.getTitle()));
-					cp.add(new JLabel("CD length: " + ((CompactDisc) media).getLength()));
-				}
-			}
-			else if (media instanceof DigitalVideoDisc) {
-				if (((DigitalVideoDisc) media).getLength() <= 0) cp.add(new JLabel("DVD cannot play!"));
-				else {
-					cp.add(new JLabel("Playing DVD: " + media.getTitle()));
-					cp.add(new JLabel("DVD length: " + ((DigitalVideoDisc) media).getLength()));
-				}
-			}
-			setTitle("Play");
-			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			setSize(250, 100);
-			setVisible(true);
 		}
 	}
 	
@@ -292,12 +271,15 @@ public class StoreScreen extends JFrame {
 		cd2.addTrack(track4, track5); // add 2 tracks with same title and same length
 		
 		CompactDisc cd3 = new CompactDisc("Baby", "Rock", "Winter", "MTP", 78.98f);
-		cd3.addTrack(track3, track3); // add track has already in list
-		cd3.removeTrack(track3); // test CD length = 0
-		cd3.removeTrack(track1); // remove track not in list
+		cd3.addTrack(track2, track3);
 		
 //		Add item to store
-		anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2, book3, cd1, cd2, cd3);
+		try {
+			anItem.addMedia(dvd1, dvd2, dvd3, dvd4, dvd5, book1, book2, book3, cd1, cd2, cd3);
+		} catch (LimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		---------------------------------------- INIT DATA ----------------------------------------
 		
 		new StoreScreen(anItem, anOrder);
